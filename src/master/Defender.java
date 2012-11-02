@@ -1,3 +1,4 @@
+package master;
 import java.io.IOException;
 
 import lejos.nxt.*;

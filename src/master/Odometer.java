@@ -1,3 +1,4 @@
+package master;
 import lejos.util.Timer;
 import lejos.util.TimerListener;
 

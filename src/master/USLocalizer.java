@@ -1,3 +1,4 @@
+package master;
 import lejos.nxt.UltrasonicSensor;
 
 public class USLocalizer {

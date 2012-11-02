@@ -1,3 +1,4 @@
+package master;
 import lejos.nxt.*;
 /**
  * This class contains methods which do a

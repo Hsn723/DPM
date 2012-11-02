@@ -1,3 +1,4 @@
+package master;
 import static java.lang.Math.*;
 import lejos.nxt.Sound;
 

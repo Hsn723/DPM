@@ -1,3 +1,4 @@
+package master;
 import lejos.nxt.*;
 //import lejos.nxt.comm.RConsole;
 import static java.lang.Math.*;
