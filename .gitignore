@@ -1,0 +1,16 @@
+## Executables ##
+#################
+*.class
+
+# Other Files #
+###############
+uml/
+*.jpg
+*.png
+*.doc
+*.docx
+
+# Eclipse #
+###########
+*.project
+*.classpath
