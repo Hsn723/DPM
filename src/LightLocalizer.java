@@ -5,7 +5,7 @@ import static java.lang.Math.*;
 public class LightLocalizer {
 	private Odometer odo;
 	private TwoWheeledRobot robot;
-	private LightSensor ls;
+	private LightSensor lightSensor;
 	private Navigation navigation;
 	private UltrasonicSensor ultrasonicSensor;
 	// Define constants
@@ -22,7 +22,7 @@ public class LightLocalizer {
 	public LightLocalizer(Odometer odo, LightSensor ls) {
 		this.odo = odo;
 		this.robot = odo.getTwoWheeledRobot();
-		this.ls = ls;
+		this.lightSensor = ls;
 		this.navigation = new Navigation(odo);
 		this.ultrasonicSensor = new UltrasonicSensor(SensorPort.S2);
 		// turn on the light
@@ -30,8 +30,8 @@ public class LightLocalizer {
 	}
 		
 	public void doSweepingLightLocalization() {
-		ls.calibrateHigh();
-		ls.calibrateLow();
+		lightSensor.calibrateHigh();
+		lightSensor.calibrateLow();
 		NXTRegulatedMotor lightMotor = Motor.C;
 		lightMotor.setSpeed(140);
 		
@@ -47,16 +47,16 @@ public class LightLocalizer {
 			// Sweep 90 degrees for the highest light value
 			lightMotor.rotate(90, true);
 			while (lightMotor.getTachoCount() <= 90) {
-				if (ls.getNormalizedLightValue() > brightestLightValue) {
-					brightestLightValue = ls.getNormalizedLightValue();
+				if (lightSensor.getNormalizedLightValue() > brightestLightValue) {
+					brightestLightValue = lightSensor.getNormalizedLightValue();
 					lightHeadingCorrection = lightMotor.getTachoCount();
 				}
 			}
 			// Sweep -90 degrees for the highest light value
 			lightMotor.rotate(-180, true);
 			while (lightMotor.getTachoCount() >= -90) {
-				if (ls.getNormalizedLightValue() > brightestLightValue) {
-					brightestLightValue = ls.getNormalizedLightValue();
+				if (lightSensor.getNormalizedLightValue() > brightestLightValue) {
+					brightestLightValue = lightSensor.getNormalizedLightValue();
 					lightHeadingCorrection= lightMotor.getTachoCount();
 				}
 			}
@@ -140,13 +140,13 @@ public class LightLocalizer {
 		//this.navigation.turnTo(0);
 		this.odo.setPosition(new double[] {0,0,0}, new boolean[] {true,true,true});
 	}
-	// We think our sensor might be giving us inconsistent readings,
-	// so we introduce a filter.
+	
+	// Get a filtered LightSensor reading by averaging 20 readings
 	private double getFilteredData()
 	{
 		int[] rawData = new int[20];
 		for (int i = 0; i < rawData.length; i++)
-			rawData[i] = ls.readValue();
+			rawData[i] = lightSensor.readValue();
 		int average = 0;
 		for (int data:rawData)
 			average += data;

@@ -3,7 +3,6 @@ import lejos.nxt.Sound;
 
 
 public class Navigation {
-	// put your navigation code here
 	
 	// Define constants
 	private static final int FORWARD_SPEED = 5;
@@ -41,13 +40,16 @@ public class Navigation {
 		this.robot.goForward(distance);
 		 
 		 // Stop the NXT
-		 Sound.beep();
 		 this.robot.setSpeeds(0,0);
 	}
 	
+	/**
+	 * Turns the NXT to the specified angle.
+	 * @param angle	the angle to which we want to turn
+	 */
 	public void turnTo(double angle) {
 		// USE THE FUNCTIONS setForwardSpeed and setRotationalSpeed from TwoWheeledRobot!
-		// Get and display the current and target angle
+		// Get the current and target angle
 		this.odo.getPosition(headings);
 		double actualTheta = headings[2]; 
 		double rotationAngle = angle - actualTheta;
@@ -64,7 +66,6 @@ public class Navigation {
 				this.robot.rotate((int) -rotationAngle);
 			}
 		}
-		Sound.twoBeeps();
 		this.robot.setSpeeds(0,0);
 	}
 }
