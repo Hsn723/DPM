@@ -1,6 +1,4 @@
 package master;
-import lejos.nxt.Motor;
-import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.remote.RemoteMotor;
 
 /**
@@ -15,7 +13,7 @@ import lejos.nxt.remote.RemoteMotor;
 public class Clamp {
 	private RemoteMotor motor;	// Modified to use a remote motor
 	
-	private static final int ROTATE_ANGLE = 30;
+	//private static final int ROTATE_ANGLE = 30;
 	
 	/**
 	 * Initializes a Clamp object.
