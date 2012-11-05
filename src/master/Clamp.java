@@ -6,7 +6,6 @@ import lejos.nxt.remote.RemoteMotor;
  * set of methods allowing the clamp to grab
  * onto or release an object.
  * 
- * @author Luke Potter
  * @author Lixuan Tang
  *
  */
