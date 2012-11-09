@@ -7,6 +7,7 @@ import lejos.nxt.remote.RemoteMotor;
  * onto or release an object.
  * 
  * @author Lixuan Tang
+ * @author Antoine Tu
  *
  */
 public class Clamp {

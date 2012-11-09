@@ -2,6 +2,7 @@ package test;
 import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import master.*;
+import master.Forklift.LiftLevel;
 
 /**
  * This class contains a simple method
@@ -36,10 +37,12 @@ public class ForkliftTest {
 			while (buttonChoice != Button.ID_ESCAPE){
 				buttonChoice = Button.waitForPress();
 				if (buttonChoice == Button.ID_LEFT) {
-					forklift.ascend();
+					//forklift.ascend();
+					forklift.goToHeight(LiftLevel.HIGH);
 					
 				} else {
-					forklift.descend();
+					//forklift.descend();
+					forklift.goToHeight(LiftLevel.LOW);
 				}
 			}
 		}
