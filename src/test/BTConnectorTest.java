@@ -23,7 +23,7 @@ public class BTConnectorTest {
 		btConnector = new BTConnector();
 		btConnector.doRemoteConnection("Potato");
 		remoteLightSensor = btConnector.getRemoteLightSensor();
-		remoteMotor = btConnector.getRemoteClamp();
+		remoteMotor = btConnector.getClampMotor();
 		remoteLightSensor.calibrateHigh();
 		remoteLightSensor.calibrateLow();
 		while(Button.waitForPress() != Button.ID_ESCAPE) {

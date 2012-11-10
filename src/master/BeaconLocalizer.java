@@ -1,6 +1,8 @@
 package master;
-import lejos.nxt.*;
+import lejos.nxt.LightSensor;
+import lejos.nxt.Sound;
 import lejos.nxt.comm.RConsole;
+import lejos.nxt.remote.RemoteMotor;
 /**
  * This class contains methods which do a
  * search for the beacon and re-orient the
@@ -16,14 +18,14 @@ public class BeaconLocalizer {
 	private Odometer odometer;
 	//private TwoWheeledRobot robot;
 	private LightSensor lightSensor;
+	private Forklift forklift;
 	private Navigation navigation;
+	
 	//private UltrasonicSensor ultrasonicSensor;
 	
 	private int brightestLightValue = 0;
 	private double lightHeading = 0;
 	private static final int BEACON_DISTANCE_THRESHOLD = 20;
-	
-	
 	
 	//parameters to help keeping track of the average light values, used for line detection
 	private final int bufferSize = 20;
@@ -37,18 +39,21 @@ public class BeaconLocalizer {
 
 	/**
 	 * Initializes a BeaconLocalizer object.
-	 * @param odometer	an Odometer
-	 * @param lightSensor	a LightSensor
+	 * @param odometer an Odometer
+	 * @param lightSensor a LightSensor
+	 * @param forkliftMotor the motor of our forklift
 	 */
-	public BeaconLocalizer(Odometer odometer, LightSensor lightSensor) {
+	public BeaconLocalizer(Odometer odometer, LightSensor lightSensor, Forklift forklift) {
 		this.odometer = odometer;
 		this.navigation = new Navigation(odometer);
 		this.lightSensor = lightSensor;
+		this.forklift = forklift;
 	}
 	
 	/**
-	 * TODO
-	 * DOESNT WORK I DONT KNOW WHY YET
+	 * Searches for the brightest light value.
+	 * TODO: NXT rotation and movement correction should happen here.
+	 * Also, we should make use of the forklift to search at different heights.
 	 */
 	public void doSearch() {
 		lightSensor.setFloodlight(true); //turn on light (not necessary, more of a debug function)
@@ -78,6 +83,10 @@ public class BeaconLocalizer {
 		}
 	}
 	
+	/**
+	 * Updates the average light reading values.
+	 * @param lightValue the light value to add to the average.
+	 */
 	private void updateAverageLightValue(int lightValue){
 		this.previousLightValues[this.averageLightValueUpdateCounter % bufferSize] = lightValue;
 		averageLightValueUpdateCounter++;

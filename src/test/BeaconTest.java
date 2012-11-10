@@ -24,13 +24,17 @@ public class BeaconTest {
 		// setup the odometer, display, and ultrasonic and light sensors
 		TwoWheeledRobot patBot = new TwoWheeledRobot(Motor.A, Motor.B);
 		Odometer odo = new Odometer(patBot, true);
-		LightSensor ls = new LightSensor(SensorPort.S1);
+
+		BTConnector btConnector = new BTConnector();
+		btConnector.doRemoteConnection("Scorpio");
+		Forklift forklift = new Forklift(btConnector.getForkliftMotor());
+		LightSensor remoteLightSensor = btConnector.getRemoteLightSensor();
 		//RConsole.openBluetooth(20000);
 		//RConsole.openUSB(10000);
 		
 		while (Button.waitForPress() != Button.ID_ESCAPE) {
 			// perform the light sensor localization
-			BeaconLocalizer lsl = new BeaconLocalizer(odo, ls);
+			BeaconLocalizer lsl = new BeaconLocalizer(odo, remoteLightSensor, forklift);
 			Motor.A.setSpeed(100);
 			Motor.B.setSpeed(100);
 			patBot.rotateIndependently(360); //rotate 360 degrees

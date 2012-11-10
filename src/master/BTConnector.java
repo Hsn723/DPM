@@ -1,9 +1,11 @@
 package master;
 import java.io.IOException;
+import lejos.nxt.LightSensor;
+import lejos.nxt.UltrasonicSensor;
+import lejos.nxt.comm.Bluetooth;
+import lejos.nxt.remote.RemoteMotor;
+import lejos.nxt.remote.RemoteNXT;
 
-import lejos.nxt.*;
-import lejos.nxt.comm.*;
-import lejos.nxt.remote.*;
 
 /**
  * This class contains methods that allow to
@@ -49,7 +51,7 @@ public class BTConnector {
 	 * as if it was local to our master NXT.
 	 * @return	a RemoteMotor object
 	 */
-	public RemoteMotor getRemoteForklift() {
+	public RemoteMotor getForkliftMotor() {
 		return slaveNXT.B;
 	}
 	
@@ -65,11 +67,11 @@ public class BTConnector {
 	
 	/**
 	 * Gets the Clamp motor of the remote NXT.
-	 * This motor cna then be controlled the same way
+	 * This motor can then be controlled the same way
 	 * as if it was local to our master NXT.
 	 * @return	a RemoteMotor object
 	 */
-	public RemoteMotor getRemoteClamp() {
+	public RemoteMotor getClampMotor() {
 		return slaveNXT.A;
 	}
 }

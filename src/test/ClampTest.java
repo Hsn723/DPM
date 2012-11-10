@@ -22,7 +22,7 @@ public class ClampTest {
 		Clamp clamp;
 		BTConnector btConnector = new BTConnector();
 		if (btConnector.doRemoteConnection("Scorpio")) {
-			clamp = new Clamp(btConnector.getRemoteClamp());
+			clamp = new Clamp(btConnector.getClampMotor());
 			do {
 				LCD.clear();
 

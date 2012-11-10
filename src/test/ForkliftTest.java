@@ -21,7 +21,7 @@ public class ForkliftTest {
 		Forklift forklift;
 		BTConnector btConnector = new BTConnector();
 		if (btConnector.doRemoteConnection("Scorpio")) {
-			forklift = new Forklift(btConnector.getRemoteForklift());
+			forklift = new Forklift(btConnector.getForkliftMotor());
 			do {
 				LCD.clear();
 

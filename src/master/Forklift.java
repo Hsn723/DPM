@@ -1,6 +1,6 @@
 package master;
 
-import lejos.nxt.remote.*;
+import lejos.nxt.remote.RemoteMotor;
 
 /**
  * This class defines a Forklift object along with
@@ -67,16 +67,22 @@ public class Forklift {
 		this.motor.rotate(-convertDistance(distance));
 	}
 	
-	/*
+	/**
+	 * Ascends the forklift.
+	 * @deprecated
+	 */
 	public void ascend() {
 		this.motor.forward();
 	}
 	
-	
+	/**
+	 * Descends the forklift.
+	 * @deprecated
+	 */
 	public void descend() {
 		this.motor.backward();
 	}
-	*/
+	
 	
 	/**
 	 * Helper method to convert a distance
