@@ -1,5 +1,6 @@
-﻿package test;
+package test;
 import lejos.nxt.*;
+import master.*;
 
 
 public class StraightLineTest {
@@ -8,7 +9,7 @@ public class StraightLineTest {
 	static Navigation navigation = new Navigation(odometer);
 	public static void main(String[] args) {
 		LCDInfo lcdInfo = new LCDInfo(odometer);
-		navigation.travelTo(0,60.96);
-		while(Button.waitForPress() != Button.ID_EXIT) {}
+		navigation.travelTo(0,20);
+		while(Button.waitForPress() != Button.ID_ESCAPE) {}
 	}
 }

@@ -62,8 +62,8 @@ public class Odometer implements TimerListener {
 	// accessors
 	public void getPosition(double [] pos) {
 		synchronized (lock) {
-			pos[0] = x;
-			pos[1] = y;
+			pos[0] = -x;
+			pos[1] = -y;
 			pos[2] = theta;
 		}
 	}

@@ -1,5 +1,6 @@
-﻿package test;
+package test;
 import lejos.nxt.*;
+import master.*;
 
 public class TurnInPlaceTest {
 	static TwoWheeledRobot robot = new TwoWheeledRobot(Motor.A, Motor.B);
@@ -7,7 +8,7 @@ public class TurnInPlaceTest {
 	static Navigation navigation = new Navigation(odometer);
 	public static void main(String[] args) {
 		LCDInfo lcdInfo = new LCDInfo(odometer);
-		robot.rotate(360);
-		while(Button.waitForPress() != Button.ID_EXIT) {}
+		robot.rotate(180);
+		while(Button.waitForPress() != Button.ID_ESCAPE) {}
 	}
 }

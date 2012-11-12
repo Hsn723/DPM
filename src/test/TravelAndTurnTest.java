@@ -1,5 +1,6 @@
-﻿package test;
+package test;
 import lejos.nxt.*;
+import master.*;
 
 
 public class TravelAndTurnTest {
@@ -13,6 +14,6 @@ public class TravelAndTurnTest {
 		navigation.travelTo( 60.96, 0 );
 		navigation.travelTo( 0, 0);
 		navigation.turnTo( 0 );	//might not be needed?
-		while(Button.waitForPress() != Button.ID_EXIT) {}
+		while(Button.waitForPress() != Button.ID_ESCAPE) {}
 	}
 }

@@ -1,6 +1,8 @@
 ## Executables ##
 #################
 *.class
+*.nxd
+*.nxj
 
 # Other Files #
 ###############
@@ -14,3 +16,4 @@ uml/
 ###########
 *.project
 *.classpath
+*.settings

@@ -2,9 +2,15 @@ package master;
 import lejos.nxt.NXTRegulatedMotor;
 
 public class TwoWheeledRobot {
-	public static final double DEFAULT_LEFT_RADIUS = 2.5;	//2.75
-	public static final double DEFAULT_RIGHT_RADIUS = 2.5;	//2.75
-	public static final double DEFAULT_WIDTH = 18.0;	//15.8
+	public static final double DEFAULT_LEFT_RADIUS = 2.05;	//2.75
+	public static final double DEFAULT_RIGHT_RADIUS = 2.05;	//2.75
+	public static final double DEFAULT_WIDTH = 18.48;	//15.8	//21.40
+	
+	// Wheel constants when the robot has a load.
+	public static final double LOAD_LEFT_RADIUS = 0;
+	public static final double LOAD_RIGHT_RADIUS = 0;
+	public static final double LOAD_WIDTH = 0;
+	
 	private NXTRegulatedMotor leftMotor, rightMotor;
 	private double leftRadius, rightRadius, width;
 	private double forwardSpeed, rotationSpeed;
@@ -19,8 +25,10 @@ public class TwoWheeledRobot {
 		this.leftRadius = leftRadius;
 		this.rightRadius = rightRadius;
 		this.width = width;
+		this.leftMotor.setAcceleration(150);
+		this.rightMotor.setAcceleration(150);
 	}
-	
+
 	public TwoWheeledRobot(NXTRegulatedMotor leftMotor, NXTRegulatedMotor rightMotor) {
 		this(leftMotor, rightMotor, DEFAULT_WIDTH, DEFAULT_LEFT_RADIUS, DEFAULT_RIGHT_RADIUS);
 	}
@@ -112,13 +120,13 @@ public class TwoWheeledRobot {
 	}
 	public void goForward(double distance)
 	{
-		leftMotor.rotate(convertDistance(DEFAULT_LEFT_RADIUS, distance), true);
-		rightMotor.rotate(convertDistance(DEFAULT_RIGHT_RADIUS,distance));
+		leftMotor.rotate(-convertDistance(DEFAULT_LEFT_RADIUS, distance), true);
+		rightMotor.rotate(-convertDistance(DEFAULT_RIGHT_RADIUS,distance));
 	}
 	public void goForward()
 	{
-		leftMotor.forward();
-		rightMotor.forward();
+		leftMotor.backward();
+		rightMotor.backward();
 	}
 	//Helper methods from SquareDriver
 	// TODO: we might want to place these in a separate class

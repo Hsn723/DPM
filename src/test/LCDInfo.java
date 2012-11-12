@@ -3,6 +3,7 @@ package test;
 import lejos.nxt.LCD;
 import lejos.util.Timer;
 import lejos.util.TimerListener;
+import master.Odometer;
 
 public class LCDInfo implements TimerListener{
 	public static final int LCD_REFRESH = 100;

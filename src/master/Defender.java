@@ -1,6 +1,5 @@
 package master;
 
-import lejos.nxt.Motor;
 import master.Forklift.LiftLevel;
 
 /**
@@ -11,36 +10,19 @@ import master.Forklift.LiftLevel;
  * @author Antoine Tu
  *
  */
-public class Defender {
-	private TwoWheeledRobot robot = new TwoWheeledRobot(Motor.A, Motor.B);
-	private Odometer odometer = new Odometer(robot, true);
-	private Navigation navigation = new Navigation(odometer);
-	//private UltrasonicSensor ultrasonicLocalizerSensor = new UltrasonicSensor(SensorPort.S1);
-	private BTConnector btConnector;
-	private BeaconLocalizer beaconLocalizer;
-	private int xBeacon, yBeacon, zBeacon;
-	private Clamp clamp;
-	private Forklift forklift;
-	
-	/*
-	 * TODO: check the BT class for info on beacon coordinates.
-	 * We will need to update this to take in the coordinates of the beacon.
-	 */
+public class Defender extends Role {
 	/**
 	 * Initializes a new Defender.
-	 * @param x the x-coord of the beacon.
-	 * @param y the y-coord of the beacon.
-	 * @param z the z-coord of the beacon.
+	 * @param robot the robot.
+	 * @param the odometer of the robot.
+	 * @param xFlag the x-coord of the beacon.
+	 * @param yFlag the y-coord of the beacon.
+	 * @param xDest the x-coord the attacker has to drop the beacon at.
+	 * @param yDest the y-coord the attacker has to drop the beacon at.
 	 * @param remoteNXTName the name of the remote NXT.
 	 */
-	public Defender(int x, int y, int z, String remoteNXTName) {
-		// Keep trying to establish connection to remote NXT if unsuccessful
-		while ( !btConnector.doRemoteConnection(remoteNXTName) ) { }
-		xBeacon = x;
-		yBeacon = y;
-		zBeacon = z;
-		clamp = new Clamp(btConnector.getClampMotor());
-		forklift = new Forklift(btConnector.getForkliftMotor());
+	public Defender(TwoWheeledRobot robot, Odometer odometer, int xFlag, int yFlag, int xDest, int yDest, String remoteNXTName) {
+		super(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
 	}
 	
 	/**
@@ -66,6 +48,7 @@ public class Defender {
 	 */
 	public void hideBeacon() {
 		// Determine and move to a hiding spot
+		// TODO
 		
 		// Drop the beacon
 		forklift.goToHeight(LiftLevel.LOW);
@@ -77,6 +60,6 @@ public class Defender {
 		 * However it could be far from our current location.
 		 * In the future we could search for the closest safe spot.
 		 */
-		navigation.travelTo(0,0);
+		navigation.travelTo(startingPosition[0], startingPosition[1]);
 	}
 }

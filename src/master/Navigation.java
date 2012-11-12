@@ -29,10 +29,18 @@ public class Navigation {
 		double xHeading = x - headings[0];
 		double yHeading = y - headings[1];
 		
-		double deltaT = atan2(yHeading, xHeading);
-		if (deltaT < 0) deltaT += 2*PI;
-		// Decide if we need to turn
+		//double deltaT = atan2(yHeading, xHeading);
+		double deltaT = atan(xHeading/yHeading);
 		deltaT = toDegrees(deltaT);
+		if ( yHeading <=0 ) {
+			if (xHeading <= 0) {
+				deltaT -= 180;
+			}
+			else deltaT += 180;
+		}
+		//if (deltaT < 0) deltaT += 2*PI;
+		// Decide if we need to turn
+		
 		if (abs(deltaT - headings[2]) > ANGLE_BAND)
 			turnTo(deltaT);
 		// Advance
