@@ -29,6 +29,9 @@ public class BeaconTest {
 		btConnector.doRemoteConnection("Scorpio");
 		Forklift forklift = new Forklift(btConnector.getForkliftMotor());
 		LightSensor remoteLightSensor = btConnector.getRemoteLightSensor();
+		Navigation nav = new Navigation(odo);
+		UltrasonicSensor us = new UltrasonicSensor(SensorPort.S3);
+		
 		//RConsole.openBluetooth(20000);
 		//RConsole.openUSB(10000);
 		
@@ -38,7 +41,21 @@ public class BeaconTest {
 			Motor.A.setSpeed(100);
 			Motor.B.setSpeed(100);
 			patBot.rotateIndependently(360); //rotate 360 degrees
-			lsl.doSearch(); //search for light source				
+			lsl.doSearch(); //search for light source
+			patBot.stop(); //stop the current spin
+			patBot.start(); //restart the engines
+			patBot.rotate(180); //rotate 180 from light detection
+			Motor.A.setSpeed(-100); //set reverse speeds
+			Motor.B.setSpeed(-100);
+			while (us.getDistance() > 25){
+				patBot.goForward(); //keep going forward until 25 units away from light source
+			}
+			patBot.stop(); //stop the current motion
+			patBot.start(); //restart engines
+			patBot.rotate(180); //rotate 180 degrees to have clamp facing the beacon
+			
+			
+			
 		}
 }
 }

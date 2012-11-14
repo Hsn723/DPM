@@ -23,7 +23,7 @@ public class BeaconLocalizer {
 	
 	//private UltrasonicSensor ultrasonicSensor;
 	
-	private int brightestLightValue = 0;
+	public double brightestLightAngle = 0;
 	private double lightHeading = 0;
 	private static final int BEACON_DISTANCE_THRESHOLD = 20;
 	
@@ -57,12 +57,11 @@ public class BeaconLocalizer {
 	 */
 	public void doSearch() {
 		lightSensor.setFloodlight(true); //turn on light (not necessary, more of a debug function)
-		lightSensor.calibrateHigh();
-		lightSensor.calibrateLow();
+		//took off light calibration as it was reporting false positives
 		while (!beaconFound){ 
 			totalReadCount++; // increase light sensor read count
 			//currentLightValue = lightSensor.getLightValue(); //get current light value
-			currentLightValue = lightSensor.getNormalizedLightValue();
+			currentLightValue = lightSensor.getLightValue(); //removed normalized so it returns a value between 0 and 100 instead of 0 and 1000
 			//RConsole.println(String.valueOf(currentLightValue));
 			//RConsole.println("Average: " + String.valueOf(averageLightValue));
 			//if the difference between the average and the current is big then light is detected, else add the read to the average
@@ -71,6 +70,7 @@ public class BeaconLocalizer {
 				if (this.totalReadCount > this.bufferSize){
 					beaconFound = true;
 					Sound.beep();
+					brightestLightAngle = odometer.getTheta();
 					}
 			
 				else {

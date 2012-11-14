@@ -8,7 +8,7 @@ public class TurnInPlaceTest {
 	static Navigation navigation = new Navigation(odometer);
 	public static void main(String[] args) {
 		LCDInfo lcdInfo = new LCDInfo(odometer);
-		robot.rotate(180);
+		robot.rotate(360);
 		while(Button.waitForPress() != Button.ID_ESCAPE) {}
 	}
 }

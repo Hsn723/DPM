@@ -128,6 +128,16 @@ public class TwoWheeledRobot {
 		leftMotor.backward();
 		rightMotor.backward();
 	}
+	
+	public void stop(){
+		leftMotor.stop(true); //don't wait for engine to stop
+		rightMotor.stop(); //this makes sure both motors stop at the same time
+	}
+	
+	public void start(){
+		leftMotor.forward();
+		rightMotor.forward();
+	}
 	//Helper methods from SquareDriver
 	// TODO: we might want to place these in a separate class
 	private static int convertDistance(double radius, double distance) {
