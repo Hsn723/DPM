@@ -29,7 +29,7 @@ public class Attacker extends Role {
 		// Write better algorithm to search for the beacon here.
 		
 		//TODO this is only for the demo
-		BeaconLocalizer beaconLocalizer = new BeaconLocalizer(odometer, btConnector.getRemoteLightSensor(), forklift);
+		BeaconLocalizer beaconLocalizer = new BeaconLocalizer(robot, odometer, btConnector.getRemoteLightSensor(), forklift);
 		beaconLocalizer.doSearch();
 		clamp.grip();
 	}

@@ -34,7 +34,7 @@ public class Defender extends Role {
 		navigation.travelTo(xBeacon, yBeacon);
 		
 		// Do a beacon localization to make sure we are well placed.
-		beaconLocalizer = new BeaconLocalizer(odometer, btConnector.getRemoteLightSensor(), forklift);
+		beaconLocalizer = new BeaconLocalizer(robot, odometer, btConnector.getRemoteLightSensor(), forklift);
 		beaconLocalizer.doSearch();	//not complete yet
 		
 		//Now we should be placed correctly and only need to clamp.

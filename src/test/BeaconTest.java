@@ -37,7 +37,7 @@ public class BeaconTest {
 		
 		while (Button.waitForPress() != Button.ID_ESCAPE) {
 			// perform the light sensor localization
-			BeaconLocalizer lsl = new BeaconLocalizer(odo, remoteLightSensor, forklift);
+			/*BeaconLocalizer lsl = new BeaconLocalizer(odo, remoteLightSensor, forklift);
 			Motor.A.setSpeed(100);
 			Motor.B.setSpeed(100);
 			patBot.rotateIndependently(360); //rotate 360 degrees
@@ -53,8 +53,9 @@ public class BeaconTest {
 			patBot.stop(); //stop the current motion
 			patBot.start(); //restart engines
 			patBot.rotate(180); //rotate 180 degrees to have clamp facing the beacon
-			
-			
+			*/
+			BeaconLocalizer lsl = new BeaconLocalizer(patBot, odo, remoteLightSensor, forklift);
+			lsl.doSearch();
 			
 		}
 }

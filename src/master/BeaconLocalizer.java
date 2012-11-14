@@ -1,6 +1,8 @@
 package master;
 import lejos.nxt.LightSensor;
+import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
+import lejos.nxt.UltrasonicSensor;
 import lejos.nxt.comm.RConsole;
 import lejos.nxt.remote.RemoteMotor;
 /**
@@ -16,12 +18,12 @@ import lejos.nxt.remote.RemoteMotor;
  */
 public class BeaconLocalizer {
 	private Odometer odometer;
-	//private TwoWheeledRobot robot;
+	private TwoWheeledRobot robot;
 	private LightSensor lightSensor;
 	private Forklift forklift;
 	private Navigation navigation;
 	
-	//private UltrasonicSensor ultrasonicSensor;
+	private UltrasonicSensor ultrasonicSensor = new UltrasonicSensor(SensorPort.S3);
 	
 	public double brightestLightAngle = 0;
 	private double lightHeading = 0;
@@ -43,11 +45,12 @@ public class BeaconLocalizer {
 	 * @param lightSensor a LightSensor
 	 * @param forkliftMotor the motor of our forklift
 	 */
-	public BeaconLocalizer(Odometer odometer, LightSensor lightSensor, Forklift forklift) {
+	public BeaconLocalizer(TwoWheeledRobot robot, Odometer odometer, LightSensor lightSensor, Forklift forklift) {
 		this.odometer = odometer;
 		this.navigation = new Navigation(odometer);
 		this.lightSensor = lightSensor;
 		this.forklift = forklift;
+		this.robot = robot;
 	}
 	
 	/**
@@ -58,6 +61,18 @@ public class BeaconLocalizer {
 	public void doSearch() {
 		lightSensor.setFloodlight(true); //turn on light (not necessary, more of a debug function)
 		//took off light calibration as it was reporting false positives
+		
+		robot.rotateIndependently(360); //rotate 360 degrees
+		findLight();
+		
+		robot.rotate(180);
+		while (ultrasonicSensor.getDistance() > 25){
+			robot.goForward(); //keep going forward until 25 units away from light source
+		}
+		robot.stop();
+		robot.rotate(180);
+	}
+	public void findLight() {
 		while (!beaconFound){ 
 			totalReadCount++; // increase light sensor read count
 			//currentLightValue = lightSensor.getLightValue(); //get current light value
