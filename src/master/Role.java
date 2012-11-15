@@ -1,5 +1,8 @@
 package master;
 
+import lejos.nxt.Sound;
+import master.Forklift.LiftLevel;
+
 /**
  * This abstract class defines a Role which only contains
  * constructors common to both Attacker and Defender.
@@ -9,7 +12,7 @@ package master;
 public abstract class Role {
 	protected TwoWheeledRobot robot;
 	protected Odometer odometer;
-	protected Navigation navigation = new Navigation(odometer);
+	protected Navigation navigation; // = new Navigation(odometer);
 	//private UltrasonicSensor ultrasonicLocalizerSensor = new UltrasonicSensor(SensorPort.S1);
 	protected BTConnector btConnector;
 	protected BeaconLocalizer beaconLocalizer;
@@ -31,15 +34,22 @@ public abstract class Role {
 	 */
 	public Role(TwoWheeledRobot robot, Odometer odometer, int xFlag, int yFlag, int xDest, int yDest, String remoteNXTName) {
 		// Keep trying to establish connection to remote NXT if unsuccessful
-		while ( !btConnector.doRemoteConnection(remoteNXTName) ) { }
+		btConnector = new BTConnector();
+		while ( !btConnector.doRemoteConnection(remoteNXTName) ) {
+			Sound.twoBeeps();
+		}
 		this.robot = robot;
 		this.odometer = odometer;
+		this.navigation = new Navigation(odometer);
 		xBeacon = xFlag;
 		yBeacon = yFlag;
 		this.xDest = xDest;
 		this.yDest = yDest;
 		clamp = new Clamp(btConnector.getClampMotor());
 		forklift = new Forklift(btConnector.getForkliftMotor());
+		
+		// Start by setting the lift high so that it doesn't collide with walls.
+		forklift.goToHeight(LiftLevel.HIGH);
 		
 		// Get the starting position
 		odometer.getPosition(startingPosition);

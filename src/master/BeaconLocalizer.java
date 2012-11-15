@@ -5,6 +5,7 @@ import lejos.nxt.Sound;
 import lejos.nxt.UltrasonicSensor;
 import lejos.nxt.comm.RConsole;
 import lejos.nxt.remote.RemoteMotor;
+import master.Forklift.LiftLevel;
 /**
  * This class contains methods which do a
  * search for the beacon and re-orient the
@@ -62,6 +63,8 @@ public class BeaconLocalizer {
 		lightSensor.setFloodlight(true); //turn on light (not necessary, more of a debug function)
 		//took off light calibration as it was reporting false positives
 		
+		forklift.goToHeight(LiftLevel.LOW);
+		
 		robot.rotateIndependently(360); //rotate 360 degrees
 		findLight();
 		
@@ -71,6 +74,7 @@ public class BeaconLocalizer {
 		}
 		robot.stop();
 		robot.rotate(180);
+		robot.goForward(-5);	//backtrack so that the beacon gets in the clamp
 	}
 	public void findLight() {
 		while (!beaconFound){ 

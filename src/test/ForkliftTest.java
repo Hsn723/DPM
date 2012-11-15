@@ -27,7 +27,7 @@ public class ForkliftTest {
 
 				LCD.drawString("< Left 	| Right >", 0, 0);
 				LCD.drawString("       	|        ", 0, 1);
-				LCD.drawString(" ascend	| descend", 0, 2);
+				LCD.drawString(" HIGH	| Low", 0, 2);
 
 
 				buttonChoice = Button.waitForPress();
@@ -40,7 +40,7 @@ public class ForkliftTest {
 					//forklift.ascend();
 					forklift.goToHeight(LiftLevel.HIGH);
 					
-				} else {
+				} else if (buttonChoice == Button.ID_RIGHT) {
 					//forklift.descend();
 					forklift.goToHeight(LiftLevel.LOW);
 				}

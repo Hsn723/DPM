@@ -1,5 +1,8 @@
 package master;
 import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
+import lejos.nxt.UltrasonicSensor;
+import master.USLocalizer.LocalizationType;
 import bluetooth.BluetoothConnection;
 import bluetooth.PlayerRole;
 import bluetooth.StartCorner;
@@ -10,7 +13,10 @@ public class BTListen {
 	private static Odometer odometer = new Odometer(robot, true);
 	private static StartCorner corner;
 	private static final String remoteNXTName = "Scorpio";
+	
+	private static UltrasonicSensor ultrasonicSensor = new UltrasonicSensor(SensorPort.S2);
 	// Add one localizer
+	static USLocalizer ultrasonicLocalizer = new USLocalizer(odometer, ultrasonicSensor, LocalizationType.RISING_EDGE);
 	
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
@@ -34,11 +40,11 @@ public class BTListen {
 		odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
 		
 		// Start role
-		if (role == role.DEFENDER) {
+		if (role == PlayerRole.DEFENDER) {
 			Defender defender = new Defender(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
 			defender.getBeacon();
 			defender.hideBeacon();
-		} else if (role == role.ATTACKER) {
+		} else if (role == PlayerRole.ATTACKER) {
 			//wait 5 minutes
 			Attacker attacker = new Attacker(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
 			attacker.searchBeacon();

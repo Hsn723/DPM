@@ -56,6 +56,8 @@ public class BeaconTest {
 			*/
 			BeaconLocalizer lsl = new BeaconLocalizer(patBot, odo, remoteLightSensor, forklift);
 			lsl.doSearch();
+			Clamp clamp = new Clamp(btConnector.getClampMotor());
+			clamp.grip();
 			
 		}
 }
