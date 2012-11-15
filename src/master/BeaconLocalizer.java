@@ -24,6 +24,10 @@ public class BeaconLocalizer {
 	private Forklift forklift;
 	private Navigation navigation;
 	
+	// TEMPORARY FIX: open up the clamp as big as we can
+	// so that when be backtrack the beacon fits inside
+	private Clamp clamp;
+	
 	private UltrasonicSensor ultrasonicSensor = new UltrasonicSensor(SensorPort.S3);
 	
 	public double brightestLightAngle = 0;
@@ -74,6 +78,10 @@ public class BeaconLocalizer {
 		}
 		robot.stop();
 		robot.rotate(180);
+		
+		// TEMPORARY FIX
+		clamp.release();
+		
 		robot.goForward(-5);	//backtrack so that the beacon gets in the clamp
 	}
 	public void findLight() {
