@@ -34,7 +34,7 @@ public class BTListen {
 		int xFlag = transmission.fx, yFlag = transmission.fy;
 		int xDest = transmission.dx, yDest = transmission.dy;
 		// Localize
-		//TODO
+		ultrasonicLocalizer.doLocalization();
 		
 		// Once we have localized, update the position.
 		odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
