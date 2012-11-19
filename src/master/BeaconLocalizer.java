@@ -5,6 +5,7 @@ import lejos.nxt.Sound;
 import lejos.nxt.UltrasonicSensor;
 import lejos.nxt.comm.RConsole;
 import lejos.nxt.remote.RemoteMotor;
+import lejos.util.Stopwatch;
 import master.Forklift.LiftLevel;
 /**
  * This class contains methods which do a
@@ -24,11 +25,12 @@ public class BeaconLocalizer {
 	private Forklift forklift;
 	private Navigation navigation;
 	
+	
 	// TEMPORARY FIX: open up the clamp as big as we can
 	// so that when be backtrack the beacon fits inside
 	private Clamp clamp;
 	
-	private UltrasonicSensor ultrasonicSensor = new UltrasonicSensor(SensorPort.S3);
+	private UltrasonicSensor ultrasonicSensor;
 	
 	public double brightestLightAngle = 0;
 	private double lightHeading = 0;
@@ -39,11 +41,18 @@ public class BeaconLocalizer {
 	private int[] previousLightValues = new int[bufferSize];
 	private int averageLightValueUpdateCounter = 0;
 	private int averageLightValue = 0;
-	private int changeThreshold = 8;
+	private int changeThreshold = 3;
 	private int currentLightValue = 0;
 	private int totalReadCount = 0;
 	private boolean beaconFound = false;
-
+	
+	private boolean isTurning = false;
+	private int corner = 1;
+	private boolean destinationArrived = false;
+	
+	private static final int SEARCH_TRAVEL_DISTANCE = 41;
+	
+	
 	/**
 	 * Initializes a BeaconLocalizer object.
 	 * @param odometer an Odometer
@@ -58,6 +67,17 @@ public class BeaconLocalizer {
 		this.robot = robot;
 	}
 	
+	
+	public BeaconLocalizer(TwoWheeledRobot robot, Odometer odometer, LightSensor lightSensor, Forklift forklift, int corner) {
+		this.odometer = odometer;
+		this.navigation = new Navigation(odometer);
+		this.lightSensor = lightSensor;
+		this.forklift = forklift;
+		this.robot = robot;
+		this.ultrasonicSensor = robot.getFrontUltrasonicSensor();
+		this.corner = corner;
+	}
+	
 	/**
 	 * Searches for the brightest light value.
 	 * TODO: NXT rotation and movement correction should happen here.
@@ -69,21 +89,124 @@ public class BeaconLocalizer {
 		
 		forklift.goToHeight(LiftLevel.LOW);
 		
-		robot.rotateIndependently(360); //rotate 360 degrees
-		findLight();
+		boolean turnedOnce = false;
 		
-		robot.rotate(180);
-		while (ultrasonicSensor.getDistance() > 25){
-			robot.goForward(); //keep going forward until 25 units away from light source
+		while (!beaconFound){
+			robot.rotateIndependently(360); //rotate 360 degrees
+			//findLight();
+			collectLightValues();
+		
+			if (!beaconFound){
+				double nextX = odometer.getX(), nextY = odometer.getY();
+				nextX += SEARCH_TRAVEL_DISTANCE;
+				nextY += SEARCH_TRAVEL_DISTANCE;
+				/*switch (this.corner) {
+				case 1:
+					nextX += SEARCH_TRAVEL_DISTANCE;
+					nextY += SEARCH_TRAVEL_DISTANCE;
+					break;
+					
+				case 2:
+					nextX -= SEARCH_TRAVEL_DISTANCE;
+					nextY += SEARCH_TRAVEL_DISTANCE;
+					break;
+				
+				case 3:
+					nextX -= SEARCH_TRAVEL_DISTANCE;
+					nextY -= SEARCH_TRAVEL_DISTANCE;
+					break;
+					
+				case 4:
+					nextX += SEARCH_TRAVEL_DISTANCE;
+					nextY -= SEARCH_TRAVEL_DISTANCE;
+					break;
+
+				default:
+					break;
+				}
+				*/
+				if (!turnedOnce)	{
+					navigation.turnTo(45);
+					turnedOnce = true;
+					robot.setSpeeds(10d, 0);
+				}
+				
+				robot.goForward(45);
+				
+				
+			}
+			
 		}
+		
+		Sound.beepSequenceUp();
+		
+		
+		while (!destinationArrived) {
+		navigation.turnTo(brightestLightAngle);
+		robot.rotate(180);
+		
+		
+		if (ultrasonicSensor.getDistance() > 20){
+			robot.goForward(20);
+		}
+		
+		else{
+			destinationArrived = true;
+			break;
+		}
+		
+		robot.rotateIndependently(360); //rotate 360 degreesf
+		collectLightValues();
+		//robot.rotate(180);
+		//robot.goForward();
+		
+		/*
+			while (ultrasonicSensor.getDistance() > 20){
+			robot.goForward(); //keep going forward until 25 units away from light source
+			}
+			*/
+		}
+		
+		
+		
 		robot.stop();
 		robot.rotate(180);
 		
 		// TEMPORARY FIX
-		clamp.release();
+		//clamp.release();
 		
-		robot.goForward(-5);	//backtrack so that the beacon gets in the clamp
+		robot.goForward(-20);	//backtrack so that the beacon gets in the clamp
+		
 	}
+	
+	public void collectLightValues(){
+		int brightestLightValue = 0;
+		long startTime = System.currentTimeMillis();
+		
+		while (System.currentTimeMillis() - startTime < 8000){
+			totalReadCount++;
+			currentLightValue = lightSensor.getLightValue();
+			if (currentLightValue - averageLightValue > changeThreshold){
+				if (this.totalReadCount > this.bufferSize){
+					if (currentLightValue > brightestLightValue ){
+						brightestLightAngle = odometer.getTheta();
+						brightestLightValue = currentLightValue;
+						Sound.beep();
+						beaconFound = true;
+					}
+				}
+			
+				else {
+					this.updateAverageLightValue(currentLightValue);
+				}
+			}
+			else {
+				this.updateAverageLightValue(currentLightValue);
+			}
+		}
+	}
+	
+	
 	public void findLight() {
 		while (!beaconFound){ 
 			totalReadCount++; // increase light sensor read count

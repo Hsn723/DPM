@@ -29,6 +29,16 @@ public class LightLocalizer {
 		// turn on the light
 		ls.setFloodlight(true);
 	}
+	
+	public LightLocalizer(Odometer odo, LightSensor ls, UltrasonicSensor us) {
+		this.odo = odo;
+		this.robot = odo.getTwoWheeledRobot();
+		this.lightSensor = ls;
+		this.navigation = new Navigation(odo);
+		this.ultrasonicSensor = us;
+		// turn on the light
+		ls.setFloodlight(true);
+	}
 		
 	public void doSweepingLightLocalization() {
 		lightSensor.calibrateHigh();

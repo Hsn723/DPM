@@ -16,8 +16,8 @@ public abstract class Role {
 	//private UltrasonicSensor ultrasonicLocalizerSensor = new UltrasonicSensor(SensorPort.S1);
 	protected BTConnector btConnector;
 	protected BeaconLocalizer beaconLocalizer;
-	protected int xBeacon, yBeacon, zBeacon;
-	protected int xDest, yDest;
+	protected double xBeacon, yBeacon, zBeacon;
+	protected double xDest, yDest;
 	protected double[] startingPosition = new double[3];
 	protected Clamp clamp;
 	protected Forklift forklift;
@@ -32,11 +32,11 @@ public abstract class Role {
 	 * @param yDest the y-coord the attacker has to drop the beacon at.
 	 * @param remoteNXTName the name of the remote NXT.
 	 */
-	public Role(TwoWheeledRobot robot, Odometer odometer, int xFlag, int yFlag, int xDest, int yDest, String remoteNXTName) {
+	public Role(TwoWheeledRobot robot, Odometer odometer, double xFlag, double yFlag, double xDest, double yDest, String remoteNXTName) {
 		// Keep trying to establish connection to remote NXT if unsuccessful
 		btConnector = new BTConnector();
 		while ( !btConnector.doRemoteConnection(remoteNXTName) ) {
-			Sound.twoBeeps();
+			Sound.twoBeeps();	// FIXME: for debugging purposes only
 		}
 		this.robot = robot;
 		this.odometer = odometer;
@@ -49,7 +49,7 @@ public abstract class Role {
 		forklift = new Forklift(btConnector.getForkliftMotor());
 		
 		// Start by setting the lift high so that it doesn't collide with walls.
-		forklift.goToHeight(LiftLevel.HIGH);
+		//forklift.goToHeight(LiftLevel.HIGH);
 		
 		// Get the starting position
 		odometer.getPosition(startingPosition);

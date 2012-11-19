@@ -21,7 +21,7 @@ public class Defender extends Role {
 	 * @param yDest the y-coord the attacker has to drop the beacon at.
 	 * @param remoteNXTName the name of the remote NXT.
 	 */
-	public Defender(TwoWheeledRobot robot, Odometer odometer, int xFlag, int yFlag, int xDest, int yDest, String remoteNXTName) {
+	public Defender(TwoWheeledRobot robot, Odometer odometer, double xFlag, double yFlag, double xDest, double yDest, String remoteNXTName) {
 		super(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
 	}
 	
@@ -48,7 +48,8 @@ public class Defender extends Role {
 	 */
 	public void hideBeacon() {
 		// Determine and move to a hiding spot
-		// TODO
+		// FIXME: This is only for the demo
+		navigation.travelTo( yDest, xDest );
 		
 		// Drop the beacon
 		forklift.goToHeight(LiftLevel.LOW);

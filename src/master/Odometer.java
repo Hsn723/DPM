@@ -108,6 +108,13 @@ public class Odometer implements TimerListener {
 			return d - 360.0;
 	}
 	
+	public double getX(){
+		return this.x;
+	}
+	
+	public double getY(){
+		return this.y;
+	}
 	
 	
 }

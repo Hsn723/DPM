@@ -6,8 +6,8 @@ import lejos.nxt.Sound;
 public class Navigation {
 	
 	// Define constants
-	private static final int FORWARD_SPEED = 5;
-	private static final int ROTATE_SPEED = 20;
+	private static final int FORWARD_SPEED = 10;
+	private static final int ROTATE_SPEED = 50;
 	private static final double ANGLE_BAND = 1;
 	private static double[] headings = new double[3];
 	
@@ -17,6 +17,7 @@ public class Navigation {
 	public Navigation(Odometer odo) {
 		this.odo = odo;
 		this.robot = odo.getTwoWheeledRobot();
+	
 	}
 	/*
 	 * TODO: sweep the ultrasonic sensor for obstacles,
@@ -75,6 +76,6 @@ public class Navigation {
 				this.robot.rotate((int) -rotationAngle);
 			}
 		}
-		this.robot.setSpeeds(0,0);
+		//this.robot.setSpeeds(0,0);
 	}
 }

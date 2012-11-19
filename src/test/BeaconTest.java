@@ -4,6 +4,8 @@ import lejos.nxt.*;
 import lejos.nxt.comm.RConsole;
 import lejos.nxt.remote.RemoteMotor;
 import master.*;
+import master.Forklift.LiftLevel;
+import master.USLocalizer.LocalizationType;
 
 /**
  * This class contains a single main method that accesses
@@ -31,6 +33,7 @@ public class BeaconTest {
 		LightSensor remoteLightSensor = btConnector.getRemoteLightSensor();
 		Navigation nav = new Navigation(odo);
 		UltrasonicSensor us = new UltrasonicSensor(SensorPort.S3);
+		LCDInfo lcd = new LCDInfo(odo);
 		
 		//RConsole.openBluetooth(20000);
 		//RConsole.openUSB(10000);
@@ -54,12 +57,42 @@ public class BeaconTest {
 			patBot.start(); //restart engines
 			patBot.rotate(180); //rotate 180 degrees to have clamp facing the beacon
 			*/
+			
+			//USLocalizer usLocalizer = new USLocalizer(odo, us, LocalizationType.FALLING_EDGE);
+			//usLocalizer.doLocalization();
+			
+			//sleep(3000);
+			
+			
+			
 			BeaconLocalizer lsl = new BeaconLocalizer(patBot, odo, remoteLightSensor, forklift);
 			lsl.doSearch();
+			
+			
 			Clamp clamp = new Clamp(btConnector.getClampMotor());
 			clamp.grip();
 			
+			
+			
+			forklift.goToHeight(LiftLevel.HIGH);
+			
+			nav.travelTo(0, 0);
+			
+			patBot.rotate(180);
+			
+			forklift.goToHeight(LiftLevel.LOW);
+			
+			clamp.release();
+			
 		}
-}
+	}
+	
+	public static void sleep(long timeout){
+		try {
+			Thread.sleep(timeout);
+		} catch (InterruptedException e) {
+			
+		}
+	}
 }
 

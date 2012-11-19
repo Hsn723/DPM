@@ -1,14 +1,12 @@
-package master;
+package test;
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
+import master.*;
 import master.USLocalizer.LocalizationType;
-import bluetooth.BluetoothConnection;
-import bluetooth.PlayerRole;
 import bluetooth.StartCorner;
-import bluetooth.Transmission;
 
-public class BTListen {
+
+public class TestDefender {
 	private static TwoWheeledRobot robot = new TwoWheeledRobot(Motor.A, Motor.B);
 	private static Odometer odometer = new Odometer(robot, true);
 	private static StartCorner corner;
@@ -19,25 +17,23 @@ public class BTListen {
 	// Add one localizer
 	private static USLocalizer ultrasonicLocalizer;
 	
-	@SuppressWarnings("static-access")
-	public static void main(String[] args) {
-		BluetoothConnection bluetoothConnection = new BluetoothConnection();
-		// as of this point the bluetooth connection is closed again, and you can pair to another NXT (or PC) if you wish
-		
-		// Get the transmission
-		Transmission transmission = bluetoothConnection.getTransmission();
-		
-		// Initialize objects
+	public static void main(String[] args) {	
 		ultrasonicSensor = robot.getFrontUltrasonicSensor();
 		ultrasonicLocalizer = new USLocalizer(odometer, ultrasonicSensor, LocalizationType.RISING_EDGE);
+		//bottom left starting
+		corner = StartCorner.BOTTOM_LEFT;
+		//Beacon starts at 5,5
+		double fx = 5;
+		double fy = 5;
 		
-		// Get the information from transmission
-		corner = transmission.startingCorner;	//do something with the corner
-		PlayerRole role = transmission.role;
+		//These are the end coordinates so we might want to put the beacon 
+		//as far away from end point as possible to make it hard on the attacker
+		double dx = 10;
+		double dy = 10;
 		
 		// Flag position (defense) and destination (attack)
-		double xFlag = transmission.fx * TILE_FACTOR, yFlag = transmission.fy * TILE_FACTOR;
-		double xDest = transmission.dx * TILE_FACTOR, yDest = transmission.dy * TILE_FACTOR;
+		double xFlag = fx * TILE_FACTOR, yFlag = fy * TILE_FACTOR;
+		double xDest = dx * TILE_FACTOR, yDest = dy * TILE_FACTOR;
 		// Localize
 		ultrasonicLocalizer.doLocalization();
 		
@@ -45,16 +41,10 @@ public class BTListen {
 		odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
 		
 		// Start role
-		if (role == PlayerRole.DEFENDER) {
-			Defender defender = new Defender(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
-			defender.getBeacon();
-			defender.hideBeacon();
-		} else if (role == PlayerRole.ATTACKER) {
-			//wait 5 minutes
-			Attacker attacker = new Attacker(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
-			attacker.searchBeacon();
-			attacker.depositBeacon();
-		}
+		
+		Defender defender = new Defender(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
+		defender.getBeacon();
+		defender.hideBeacon();
 		
 		System.exit(0);
 	}
@@ -64,7 +54,6 @@ public class BTListen {
 	 * of the robot.
 	 * @return an array containing the x, y and theta.
 	 */
-	@SuppressWarnings("static-access")
 	private static double[] getStartingPose() {
 		double xPos = corner.getX() * TILE_FACTOR;
 		double yPos = corner.getY() * TILE_FACTOR;

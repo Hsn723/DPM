@@ -45,9 +45,19 @@ public class Forklift {
 	 */
 	public void goToHeight(LiftLevel level) {
 		if (level == currentLiftLevel) return;
+		
+		
 		try {
 			this.motor.rotate(convertDistance(level.height - currentLiftLevel.height));
-		} catch (Exception e) {}	// This is a hack
+		} catch (Exception e) {
+			this.currentLiftLevel = level;
+			return;
+		}
+		
+		this.currentLiftLevel = level;
+			
+
+		
 		
 		/*int distance = motor.getTachoCount();
 		int target = convertDistance(level.height - currentLiftLevel.height);
@@ -61,7 +71,7 @@ public class Forklift {
 			} while (distance > target);
 		}
 		motor.stop();*/
-		this.currentLiftLevel = level;
+		
 	}
 	
 	/**

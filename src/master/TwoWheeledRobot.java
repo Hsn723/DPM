@@ -1,7 +1,16 @@
 package master;
+import lejos.nxt.LightSensor;
 import lejos.nxt.NXTRegulatedMotor;
+import lejos.nxt.SensorPort;
+import lejos.nxt.UltrasonicSensor;
 
 public class TwoWheeledRobot {
+	
+	// Sensor ports belonging to the master
+	private LightSensor masterLightSensor = new LightSensor(SensorPort.S1);
+	private UltrasonicSensor sideUltrasonicSensor = new UltrasonicSensor(SensorPort.S2);
+	private UltrasonicSensor frontUltrasonicSensor = new UltrasonicSensor(SensorPort.S3);
+	
 	public static final double DEFAULT_LEFT_RADIUS = 2.05;	//2.75
 	public static final double DEFAULT_RIGHT_RADIUS = 2.05;	//2.75
 	public static final double DEFAULT_WIDTH = 18.48;	//15.8	//21.40
@@ -14,6 +23,7 @@ public class TwoWheeledRobot {
 	private NXTRegulatedMotor leftMotor, rightMotor;
 	private double leftRadius, rightRadius, width;
 	private double forwardSpeed, rotationSpeed;
+	private boolean isTurning = false;
 	
 	public TwoWheeledRobot(NXTRegulatedMotor leftMotor,
 						   NXTRegulatedMotor rightMotor,
@@ -146,5 +156,33 @@ public class TwoWheeledRobot {
 	
 	private static int convertAngle(double radius, double width, double angle) {
 		return convertDistance(radius, Math.PI * width * angle / 360.0);
+	}
+	
+	public boolean isTurning(){
+		return this.isTurning;
+	}
+
+	/**
+	 * Get the front Ultrasonic Sensor.
+	 * @return an UltrasonicSensor object.
+	 */
+	public UltrasonicSensor getFrontUltrasonicSensor() {
+		return frontUltrasonicSensor;
+	}
+	
+	/**
+	 * Get the side Ultrasonic Sensor.
+	 * @return an UltrasonicSensor object.
+	 */
+	public UltrasonicSensor getSideUltrasonicSensor() {
+		return sideUltrasonicSensor;
+	}
+	
+	/**
+	 * Get the Light Sensor of the master.
+	 * @return an LightSensor object.
+	 */
+	public LightSensor getMasterLightSensor() {
+		return masterLightSensor;
 	}
 }
