@@ -59,7 +59,7 @@ public class Attacker extends Role {
 	public void depositBeacon() {
 		// Reset our booleans
 		destinationReached = false;
-		Behavior b0 = new TravelToBehavior(startingPosition[0], startingPosition[1]);
+		Behavior b0 = new ExitFieldBehavior();
 		Behavior b1 = new TravelToBehavior(xDest, yDest);
 		Behavior b2 = new ObstacleAvoidanceBehavior();
 		Behavior b3 = new BeaconDropBehavior();

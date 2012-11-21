@@ -5,7 +5,10 @@ import master.Forklift.LiftLevel;
 
 /**
  * This abstract class defines a Role which only contains
- * constructors common to both Attacker and Defender.
+ * constructors common to both Attacker and Defender,
+ * as well as global variables that can be statically
+ * accessed by behaviors
+ * 
  * @author Antoine Tu
  *
  */
@@ -18,11 +21,12 @@ public abstract class Role {
 	protected BeaconLocalizer beaconLocalizer;
 	protected double xBeacon, yBeacon, zBeacon;
 	protected double xDest, yDest;
-	protected double[] startingPosition = new double[3];
+	protected static double[] startingPosition = new double[3];
 	protected static Clamp clamp;
 	protected static Forklift forklift;
 	
 	// Set state booleans for our behaviors
+	public static boolean originReached = false;
 	public static boolean destinationReached = false;
 	public static boolean beaconDetected = false;
 	public static boolean beaconReached = false;

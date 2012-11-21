@@ -64,7 +64,7 @@ public class Defender extends Role {
 		destinationReached = false;
 		
 		// Initialize our behaviors.
-		Behavior b0 = new TravelToBehavior(startingPosition[0], startingPosition[1]);
+		Behavior b0 = new ExitFieldBehavior();
 		Behavior b1 = new TravelToBehavior(yDest, xDest);
 		Behavior b2 = new ObstacleAvoidanceBehavior();
 		Behavior b3 = new BeaconDropBehavior();

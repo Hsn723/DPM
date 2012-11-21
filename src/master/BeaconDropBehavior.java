@@ -9,7 +9,7 @@ import lejos.robotics.subsumption.Behavior;
  *
  */
 public class BeaconDropBehavior implements Behavior {
-	private boolean suppressed = false; //might not even be necessary
+	private boolean suppressed = false; //might not even be necessary, top priority
 	
 	@Override
 	public void action() {

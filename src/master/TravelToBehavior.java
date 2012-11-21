@@ -21,6 +21,10 @@ public class TravelToBehavior implements Behavior {
 	public void action() {
 		suppressed = false;
 		Role.navigation.travelTo(x, y);	//FIXME: should make sure if travelto returns
+		while(!suppressed) {
+			Thread.yield();
+		}
+		Role.robot.stop();
 		Role.destinationReached = true;	//TODO: make sure this isn't called prematurely.
 		//FIXME: not clear if we should add a suppressed check here.
 	}
