@@ -87,6 +87,10 @@ public class BeaconTest {
 		}
 	}
 	
+	/**
+	 * Make the thread sleep for a given amount of time (in ms)
+	 * @param timeout
+	 */
 	public static void sleep(long timeout){
 		try {
 			Thread.sleep(timeout);

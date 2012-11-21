@@ -24,7 +24,11 @@ public class Attacker extends Role {
 	public Attacker(TwoWheeledRobot robot, Odometer odometer, double xFlag, double yFlag, double xDest, double yDest, String remoteNXTName) {
 		super(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
 	}
-
+	
+	/**
+	 * Search for the beacon using our search algorithm (to be determined)
+	 * Once found, use the clamp to grab the beacon
+	 */
 	public void searchBeacon() {
 		// Write better algorithm to search for the beacon here.
 		
@@ -47,9 +51,18 @@ public class Attacker extends Role {
 		navigation.travelTo(startingPosition[0], startingPosition[1]);
 	}
 	
+	
+	/**
+	 * Converts starting position into the number of the corner we start
+	 * 1 = bottom left
+	 * 2 = top left
+	 * 3 = top right
+	 * 4 = bottom right
+	 * @return
+	 */
 	private int getCorner() {
 		double tolerance = 5;	//give 5cm of error margin, it doesn't really matter
-		if (startingPosition[0] - startingPosition[1] < tolerance)
+		if (startingPosition[0] < 40 && startingPosition[1] < 40 && startingPosition[0] - startingPosition[1] < tolerance)
 			return 1;
 		else if (startingPosition[1] + tolerance < startingPosition[0])
 			return 2;

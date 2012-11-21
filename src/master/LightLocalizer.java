@@ -3,6 +3,15 @@ import lejos.nxt.*;
 //import lejos.nxt.comm.RConsole;
 import static java.lang.Math.*;
 
+/**
+ * CURRENTLY NOT BEING USED
+ * 
+ * NEEDS HEAVY MODIFICATIONS 
+ * 
+ * Performs light localization on the robot
+ * @author 
+ *
+ */
 public class LightLocalizer {
 	private Odometer odo;
 	private TwoWheeledRobot robot;

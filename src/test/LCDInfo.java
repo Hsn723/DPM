@@ -5,6 +5,11 @@ import lejos.util.Timer;
 import lejos.util.TimerListener;
 import master.Odometer;
 
+/**
+ * Class to print odometer information to the lcd of our master brick.
+ * @author 
+ *
+ */
 public class LCDInfo implements TimerListener{
 	public static final int LCD_REFRESH = 100;
 	private Odometer odo;
@@ -24,6 +29,11 @@ public class LCDInfo implements TimerListener{
 		lcdTimer.start();
 	}
 	
+	/**
+	 * Print odometer information to the screen
+	 * Multiplies odometer values by 10 for accuracy 
+	 * reasons.
+	 */
 	public void timedOut() { 
 		odo.getPosition(pos);
 		LCD.clear();

@@ -8,6 +8,13 @@ import lejos.nxt.Button;
 import lejos.nxt.LCD;
 import bluetooth.*;
 
+/**
+ * Test class given by instructors to test for the
+ * correct transmission of bluetooth values when listening 
+ * to the server.
+ * @author 
+ *
+ */
 public class BTTest {
 	// example call of the transmission protocol
 	// The print function is just for debugging to make sure data is received correctly

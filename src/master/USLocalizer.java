@@ -1,6 +1,11 @@
 package master;
 import lejos.nxt.UltrasonicSensor;
 
+/**
+ * Ultrasonic localizer for robot
+ * Uses falling edge
+ * @author 
+ */
 public class USLocalizer {
 	public enum LocalizationType { FALLING_EDGE, RISING_EDGE };
 	public static double ROTATION_SPEED = 50;
@@ -26,6 +31,9 @@ public class USLocalizer {
 		us.off();
 	}
 	
+	/**
+	 * Perform ultrasonic localization
+	 */
 	public void doLocalization() {
 		double [] pos = new double [3];
 		double angleA, angleB;
@@ -137,6 +145,10 @@ public class USLocalizer {
 	// To increase precision, we are averaging a sample of 5 readings
 	/*
 	 * TODO: implement a more accurate filter
+	 */
+	/**
+	 * Basic filter for the ultrasonic sensor
+	 * @return the filtered reading of the sensor 
 	 */
 	private int getFilteredData() {
 		int distance;

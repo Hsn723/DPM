@@ -2,6 +2,13 @@ package test;
 import lejos.nxt.*;
 import master.*;
 
+/**
+ * This class tests the accuracy of our 
+ * odometer and navigation when travelling 
+ * in a straight line.
+ * @author 
+ *
+ */
 
 public class StraightLineTest {
 	static TwoWheeledRobot robot = new TwoWheeledRobot(Motor.A, Motor.B);

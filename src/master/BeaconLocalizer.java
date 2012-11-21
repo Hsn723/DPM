@@ -55,6 +55,7 @@ public class BeaconLocalizer {
 	
 	/**
 	 * Initializes a BeaconLocalizer object.
+	 * @param robot our robot
 	 * @param odometer an Odometer
 	 * @param lightSensor a LightSensor
 	 * @param forkliftMotor the motor of our forklift
@@ -67,7 +68,15 @@ public class BeaconLocalizer {
 		this.robot = robot;
 	}
 	
-	
+	/**
+	 * Initializes a BeaconLocalizer object.
+	 * @param robot our robot
+	 * @param odometer an Odometer
+	 * @param lightSensor a LightSensor
+	 * @param forkliftMotor the motor of our forklift
+	 * @param corner the corner we are starting in
+	 * 
+	 */
 	public BeaconLocalizer(TwoWheeledRobot robot, Odometer odometer, LightSensor lightSensor, Forklift forklift, int corner) {
 		this.odometer = odometer;
 		this.navigation = new Navigation(odometer);
@@ -179,6 +188,13 @@ public class BeaconLocalizer {
 		
 	}
 	
+	/**
+	 * Reads the current light sensor value, compares it with the 
+	 * moving average of previous light values and determines if the 
+	 * beacon is found
+	 * 
+	 * Beeps if beacon is found
+	 */
 	public void collectLightValues(){
 		int brightestLightValue = 0;
 		long startTime = System.currentTimeMillis();
@@ -206,7 +222,13 @@ public class BeaconLocalizer {
 		}
 	}
 	
-	
+	/**
+	 * Reads the current light sensor value, compares it with the 
+	 * moving average of previous light values and determines if the 
+	 * beacon is found
+	 * 
+	 * Beeps if beacon is found
+	 */
 	public void findLight() {
 		while (!beaconFound){ 
 			totalReadCount++; // increase light sensor read count

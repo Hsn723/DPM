@@ -5,7 +5,11 @@ import master.*;
 import master.USLocalizer.LocalizationType;
 import bluetooth.StartCorner;
 
-
+/**
+ * Test Class for Defender Mode
+ * @author Jeffrey Durocher
+ * 
+ */
 public class TestDefender {
 	private static TwoWheeledRobot robot = new TwoWheeledRobot(Motor.A, Motor.B);
 	private static Odometer odometer = new Odometer(robot, true);

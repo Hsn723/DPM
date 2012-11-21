@@ -2,6 +2,18 @@ package test;
 import lejos.nxt.*;
 import master.*;
 
+/**
+ * Test class for determining the accuracy of our 
+ * navigation and odometer when traveling to a specific 
+ * location, then turning and traveling to a different 
+ * location.
+ * 
+ * Travels 2 tiles up, then 2 tiles to the right,
+ * then 2 tiles down, and 2 tiles to the left 
+ * to complete a square
+ * @author 
+ *
+ */
 
 public class TravelAndTurnTest {
 	static TwoWheeledRobot robot = new TwoWheeledRobot(Motor.A, Motor.B);

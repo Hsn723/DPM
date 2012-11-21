@@ -2,6 +2,13 @@ package master;
 import static java.lang.Math.*;
 import lejos.nxt.Sound;
 
+/**
+ * Handles the navigation of the robot
+ * turning to a given degree or to travel to a given point
+ * in the field
+ * @author
+ *
+ */
 
 public class Navigation {
 	
@@ -19,7 +26,12 @@ public class Navigation {
 		this.robot = odo.getTwoWheeledRobot();
 	
 	}
-	/*
+	/**
+	 * Makes the robot travel to a given x,y coordinate
+	 * x and y are given in cm
+	 * absolute positioning (not relative to the current position of the robot)
+	 * @param x x coordinate in cm
+	 * @param y y coordinate in cm
 	 * TODO: sweep the ultrasonic sensor for obstacles,
 	 * start WallFollower to go around them.
 	 */

@@ -8,6 +8,17 @@ import bluetooth.PlayerRole;
 import bluetooth.StartCorner;
 import bluetooth.Transmission;
 
+/**
+ * Main class 
+ * 
+ * Listens to the server and waits for instructions
+ * on attacker, defender etc...
+ * 
+ * Calls attacker or defender class once all data is received.
+ * @author 
+ *
+ */
+
 public class BTListen {
 	private static TwoWheeledRobot robot = new TwoWheeledRobot(Motor.A, Motor.B);
 	private static Odometer odometer = new Odometer(robot, true);
