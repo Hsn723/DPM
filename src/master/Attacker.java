@@ -1,5 +1,7 @@
 package master;
 
+import lejos.robotics.subsumption.Arbitrator;
+import lejos.robotics.subsumption.Behavior;
 import master.Forklift.LiftLevel;
 
 /**
@@ -30,12 +32,23 @@ public class Attacker extends Role {
 	 * Once found, use the clamp to grab the beacon
 	 */
 	public void searchBeacon() {
+		Behavior b0 = new GoForwardBehavior();
+		Behavior b1 = new TravelToBehavior(xBeacon, yBeacon);
+		Behavior b2 = new ObstacleAvoidanceBehavior();
+		Behavior b3 = new BeaconSweepBehavior();	//TODO: constructors for this
+		Behavior b4 = new BeaconGrabBehavior();
+		Behavior[] behaviors = {b0, b1, b2, b3, b4};
+		
+		Arbitrator arbitrator = new Arbitrator(behaviors, true);
+		arbitrator.start();
+		/*
 		// Write better algorithm to search for the beacon here.
 		
 		//TODO this is only for the demo
 		BeaconLocalizer beaconLocalizer = new BeaconLocalizer(robot, odometer, btConnector.getRemoteLightSensor(), forklift, getCorner());
 		beaconLocalizer.doSearch();
 		clamp.grip();
+		*/
 	}
 	
 	/**
@@ -44,11 +57,23 @@ public class Attacker extends Role {
 	 * and move out of the field.
 	 */
 	public void depositBeacon() {
+		// Reset our booleans
+		destinationReached = false;
+		Behavior b0 = new TravelToBehavior(startingPosition[0], startingPosition[1]);
+		Behavior b1 = new TravelToBehavior(xDest, yDest);
+		Behavior b2 = new ObstacleAvoidanceBehavior();
+		Behavior b3 = new BeaconDropBehavior();
+		Behavior[] behaviors = {b0, b1, b2, b3};
+		
+		Arbitrator arbitrator = new Arbitrator(behaviors, true);
+		arbitrator.start();
+		/*
 		navigation.travelTo(xDest, yDest);
 		forklift.goToHeight(LiftLevel.LOW);
 		clamp.release();
 		// TODO: we might want to decide on another dropoff point
 		navigation.travelTo(startingPosition[0], startingPosition[1]);
+		*/
 	}
 	
 	

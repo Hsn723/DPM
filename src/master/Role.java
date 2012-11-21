@@ -10,17 +10,24 @@ import master.Forklift.LiftLevel;
  *
  */
 public abstract class Role {
-	protected TwoWheeledRobot robot;
+	protected static TwoWheeledRobot robot; //changed to static
 	protected Odometer odometer;
-	protected Navigation navigation; // = new Navigation(odometer);
+	protected static Navigation navigation; // changed to static
 	//private UltrasonicSensor ultrasonicLocalizerSensor = new UltrasonicSensor(SensorPort.S1);
 	protected BTConnector btConnector;
 	protected BeaconLocalizer beaconLocalizer;
 	protected double xBeacon, yBeacon, zBeacon;
 	protected double xDest, yDest;
 	protected double[] startingPosition = new double[3];
-	protected Clamp clamp;
-	protected Forklift forklift;
+	protected static Clamp clamp;
+	protected static Forklift forklift;
+	
+	// Set state booleans for our behaviors
+	public static boolean destinationReached = false;
+	public static boolean beaconDetected = false;
+	public static boolean beaconReached = false;
+	public static boolean beaconGrabbed = false;
+	public static boolean beaconDropped = false;
 	
 	/**
 	 * Initializes a new Role.

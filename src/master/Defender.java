@@ -1,5 +1,7 @@
 package master;
 
+import lejos.robotics.subsumption.Arbitrator;
+import lejos.robotics.subsumption.Behavior;
 import master.Forklift.LiftLevel;
 
 /**
@@ -30,6 +32,16 @@ public class Defender extends Role {
 	 * and then grab the beacon.
 	 */
 	public void getBeacon() {
+		// Instantiate behaviors.
+		Behavior b0 = new TravelToBehavior(xBeacon, yBeacon);
+		Behavior b1 = new ObstacleAvoidanceBehavior();
+		Behavior b2 = new BeaconGrabBehavior();
+		Behavior[] behaviors = {b0, b1, b2};
+
+		// Instantiate and start arbitrator.
+		Arbitrator arbitrator = new Arbitrator(behaviors, true);
+		arbitrator.start();
+		/*
 		// First navigate to given coordinates for beacon
 		navigation.travelTo(xBeacon, yBeacon);
 		
@@ -39,6 +51,7 @@ public class Defender extends Role {
 		
 		//Now we should be placed correctly and only need to clamp.
 		clamp.grip();
+		*/
 	}
 	
 	/**
@@ -47,13 +60,26 @@ public class Defender extends Role {
 	 * field.
 	 */
 	public void hideBeacon() {
+		// Reset our booleans
+		destinationReached = false;
+		
+		// Initialize our behaviors.
+		Behavior b0 = new TravelToBehavior(startingPosition[0], startingPosition[1]);
+		Behavior b1 = new TravelToBehavior(yDest, xDest);
+		Behavior b2 = new ObstacleAvoidanceBehavior();
+		Behavior b3 = new BeaconDropBehavior();
+		Behavior[] behaviors = {b0, b1, b2, b3};
+		
+		Arbitrator arbitrator = new Arbitrator(behaviors, true);
+		arbitrator.start();
+		
 		// Determine and move to a hiding spot
 		// FIXME: This is only for the demo
-		navigation.travelTo( yDest, xDest );
+		//navigation.travelTo( yDest, xDest );
 		
 		// Drop the beacon
-		forklift.goToHeight(LiftLevel.LOW);
-		clamp.release();
+		//forklift.goToHeight(LiftLevel.LOW);
+		//clamp.release();
 		
 		// Move out of the field
 		/*
@@ -61,6 +87,7 @@ public class Defender extends Role {
 		 * However it could be far from our current location.
 		 * In the future we could search for the closest safe spot.
 		 */
-		navigation.travelTo(startingPosition[0], startingPosition[1]);
+		//navigation.travelTo(startingPosition[0], startingPosition[1]);
+		
 	}
 }
