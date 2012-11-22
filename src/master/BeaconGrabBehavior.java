@@ -14,7 +14,7 @@ public class BeaconGrabBehavior implements Behavior {
 	
 	@Override
 	public boolean takeControl() {
-		return Role.beaconReached && !Role.beaconGrabbed;
+		return Role.beaconDetected && Role.robot.getFrontUltrasonicSensor().getDistance() < 25 && !Role.beaconGrabbed;
 	}
 
 	@Override
@@ -24,6 +24,9 @@ public class BeaconGrabBehavior implements Behavior {
 		Role.robot.goForward(STAND_OFF_DISTANCE);
 		Role.clamp.grip();
 		Role.robot.goForward(-STAND_OFF_DISTANCE);
+		while(!suppressed) {
+			Thread.yield();	//make sure we don't prematurely set beaconGrabbed to true
+		}
 		Role.beaconGrabbed = true;
 	}
 

@@ -74,4 +74,12 @@ public class BTConnector {
 	public RemoteMotor getClampMotor() {
 		return slaveNXT.A;
 	}
+	
+	/**
+	 * Starts a program on the remote NXT.
+	 * @param name
+	 */
+	public void startProgram(String filename) {
+		slaveNXT.startProgram(filename);
+	}
 }

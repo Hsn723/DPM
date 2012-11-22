@@ -14,7 +14,7 @@ import lejos.nxt.UltrasonicSensor;
 public class TwoWheeledRobot {
 	
 	// Sensor ports belonging to the master
-	private LightSensor masterLightSensor = new LightSensor(SensorPort.S1);
+	private static LightSensor masterLightSensor = new LightSensor(SensorPort.S1);
 	private UltrasonicSensor sideUltrasonicSensor = new UltrasonicSensor(SensorPort.S2);
 	private UltrasonicSensor frontUltrasonicSensor = new UltrasonicSensor(SensorPort.S3);
 	
@@ -145,6 +145,11 @@ public class TwoWheeledRobot {
 			rightMotor.setSpeed((int)rightSpeed);
 	}
 	
+	public void setMotorSpeed(double leftSpeed, double rightSpeed){
+		leftMotor.setSpeed( (int)leftSpeed);
+		rightMotor.setSpeed( (int)rightSpeed);
+	}
+	
 	/**
 	 * Rotate the robot (with blocking)
 	 * @param angle in degrees
@@ -173,6 +178,17 @@ public class TwoWheeledRobot {
 		leftMotor.rotate(-convertDistance(DEFAULT_LEFT_RADIUS, distance), true);
 		rightMotor.rotate(-convertDistance(DEFAULT_RIGHT_RADIUS,distance));
 	}
+	
+	/**
+	 * Moves the robot forward a given distance
+	 * @param distance in cm
+	 */
+	public void goForwardIndependently(double distance)
+	{
+		leftMotor.rotate(-convertDistance(DEFAULT_LEFT_RADIUS, distance), true);
+		rightMotor.rotate(-convertDistance(DEFAULT_RIGHT_RADIUS,distance), true);
+	}
+	
 	
 	/**
 	 * Moves the robot forward until told to stop
@@ -247,7 +263,7 @@ public class TwoWheeledRobot {
 	 * Get the Light Sensor of the master.
 	 * @return an LightSensor object.
 	 */
-	public LightSensor getMasterLightSensor() {
+	public static LightSensor getMasterLightSensor() {
 		return masterLightSensor;
 	}
 }

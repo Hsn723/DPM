@@ -1,24 +1,40 @@
 package master;
+
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.TimerListener;
+import lejos.util.Timer;
 
-public class BeaconSweepBehavior implements Behavior {
-
+public class BeaconSweepBehavior implements Behavior, TimerListener {
+	private static final int SCAN_PERIOD = 10 * 1000;
+	
+	private boolean timedOut = false;
+	
+	public BeaconSweepBehavior() {
+		Timer timer = new Timer(SCAN_PERIOD, this);
+		timer.start();
+	}
+	
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
+		Role.beaconLocalizer.doSearchBehavior();
+		timedOut = false;
 		
 	}
 
 	@Override
 	public void suppress() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public boolean takeControl() {
-		// TODO Auto-generated method stub
-		return false;
+		return timedOut;
+	}
+
+	@Override
+	public void timedOut() {
+		timedOut = true;
+		
 	}
 	
 }

@@ -28,15 +28,32 @@ public class Defender extends Role {
 	}
 	
 	/**
+	 * Dummy Defender
+	 * @param robot
+	 * @param odometer
+	 * @param xFlag
+	 * @param yFlag
+	 * @param xDest
+	 * @param yDest
+	 * 
+	 * @deprecated
+	 */
+	public Defender(TwoWheeledRobot robot, Odometer odometer, double xFlag, double yFlag, double xDest, double yDest) {
+		super(robot, odometer, xFlag, yFlag, xDest, yDest);
+	}
+	
+	/**
 	 * Make the robot travel to the beacon's given location
 	 * and then grab the beacon.
 	 */
 	public void getBeacon() {
 		// Instantiate behaviors.
-		Behavior b0 = new TravelToBehavior(xBeacon, yBeacon);
-		Behavior b1 = new ObstacleAvoidanceBehavior();
-		Behavior b2 = new BeaconGrabBehavior();
-		Behavior[] behaviors = {b0, b1, b2};
+		Behavior b0 = new GoForwardBehavior();
+		Behavior b1 = new BeaconSweepBehavior();
+		Behavior b2 = new TravelToBehavior(xBeacon, yBeacon);
+		Behavior b3 = new ObstacleAvoidanceBehavior();
+		Behavior b4 = new BeaconGrabBehavior();
+		Behavior[] behaviors = {b0, b1, b2, b3, b4};
 
 		// Instantiate and start arbitrator.
 		Arbitrator arbitrator = new Arbitrator(behaviors, true);

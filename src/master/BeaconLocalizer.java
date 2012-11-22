@@ -44,7 +44,7 @@ public class BeaconLocalizer {
 	private int changeThreshold = 3;
 	private int currentLightValue = 0;
 	private int totalReadCount = 0;
-	private boolean beaconFound = false;
+	private boolean beaconFound = false;	//deprecate this
 	
 	private boolean isTurning = false;
 	private int corner = 1;
@@ -66,6 +66,7 @@ public class BeaconLocalizer {
 		this.lightSensor = lightSensor;
 		this.forklift = forklift;
 		this.robot = robot;
+		this.ultrasonicSensor = robot.getFrontUltrasonicSensor();
 	}
 	
 	/**
@@ -88,9 +89,46 @@ public class BeaconLocalizer {
 	}
 	
 	/**
+	 * Searches for the brightest light at different levels.
+	 */
+	public void doSearchBehavior() {
+		//forklift.goToHeight(LiftLevel.LOW);
+		robot.rotateIndependently(360);
+		collectLightValues();
+		
+		// Search other levels
+		if(!Role.beaconDetected) {
+			forklift.goToHeight(LiftLevel.MIDLOW);
+			robot.rotateIndependently(360);
+			collectLightValues();
+		}
+		if(!Role.beaconDetected) {
+			forklift.goToHeight(LiftLevel.MIDHIGH);
+			robot.rotateIndependently(360);
+			collectLightValues();
+		}
+		if(!Role.beaconDetected) {
+			forklift.goToHeight(LiftLevel.HIGH);
+			robot.rotateIndependently(360);
+			collectLightValues();
+		}
+		if(Role.beaconDetected) {
+			navigation.turnTo(brightestLightAngle);
+			robot.rotate(180);
+			// note this works only for when the beacon is on the floor.
+			// if the baecon is placed on top of a block and there's a obstacle in front of it, this would break
+			
+			if(ultrasonicSensor.getDistance() < BEACON_DISTANCE_THRESHOLD) {
+				Role.beaconReached = true;
+			}
+		}
+	}
+	
+	/**
 	 * Searches for the brightest light value.
 	 * TODO: NXT rotation and movement correction should happen here.
 	 * Also, we should make use of the forklift to search at different heights.
+	 * @deprecated
 	 */
 	public void doSearch() {
 		lightSensor.setFloodlight(true); //turn on light (not necessary, more of a debug function)
@@ -208,7 +246,9 @@ public class BeaconLocalizer {
 						brightestLightAngle = odometer.getTheta();
 						brightestLightValue = currentLightValue;
 						Sound.beep();
-						beaconFound = true;
+						//beaconFound = true;
+						Role.beaconDetected = true;
+						
 					}
 				}
 			
@@ -228,6 +268,7 @@ public class BeaconLocalizer {
 	 * beacon is found
 	 * 
 	 * Beeps if beacon is found
+	 * @deprecated
 	 */
 	public void findLight() {
 		while (!beaconFound){ 

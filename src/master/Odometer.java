@@ -136,7 +136,17 @@ public class Odometer implements TimerListener {
 		}
 	}
 	
+	public void setX(int newX) {
+		synchronized (lock) {
+			x = newX;
+		}
+	}
 	
+	public void setY(int newY) {
+		synchronized (lock) {
+			y = newY;
+		}
+	}
 	/**
 	 * @param angle negative or over 360
 	 * @return a value from 0-360

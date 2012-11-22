@@ -1,5 +1,6 @@
 package master;
 
+import lejos.nxt.LightSensor;
 import lejos.nxt.Sound;
 import master.Forklift.LiftLevel;
 
@@ -14,16 +15,17 @@ import master.Forklift.LiftLevel;
  */
 public abstract class Role {
 	protected static TwoWheeledRobot robot; //changed to static
-	protected Odometer odometer;
+	protected static Odometer odometer;
 	protected static Navigation navigation; // changed to static
 	//private UltrasonicSensor ultrasonicLocalizerSensor = new UltrasonicSensor(SensorPort.S1);
 	protected BTConnector btConnector;
-	protected BeaconLocalizer beaconLocalizer;
+	protected static BeaconLocalizer beaconLocalizer;
 	protected double xBeacon, yBeacon, zBeacon;
 	protected double xDest, yDest;
 	protected static double[] startingPosition = new double[3];
 	protected static Clamp clamp;
 	protected static Forklift forklift;
+	protected static LightSensor beaconLightSensor;
 	
 	// Set state booleans for our behaviors
 	public static boolean originReached = false;
@@ -58,9 +60,35 @@ public abstract class Role {
 		this.yDest = yDest;
 		clamp = new Clamp(btConnector.getClampMotor());
 		forklift = new Forklift(btConnector.getForkliftMotor());
+		beaconLightSensor = btConnector.getRemoteLightSensor();
+		beaconLocalizer = new BeaconLocalizer(robot, odometer, beaconLightSensor, forklift);
 		
 		// Start by setting the lift high so that it doesn't collide with walls.
-		//forklift.goToHeight(LiftLevel.HIGH);
+		forklift.goToHeight(LiftLevel.HIGH);
+		
+		// Get the starting position
+		odometer.getPosition(startingPosition);
+	}
+	/**
+	 * Initialize a dummy role without the remote NXT
+	 * For testing purposes only, to be removed.
+	 * @param robot
+	 * @param odometer
+	 * @param xFlag
+	 * @param yFlag
+	 * @param xDest
+	 * @param yDest
+	 * 
+	 * @deprecated
+	 */
+	public Role(TwoWheeledRobot robot, Odometer odometer, double xFlag, double yFlag, double xDest, double yDest) {
+		this.robot = robot;
+		this.odometer = odometer;
+		this.navigation = new Navigation(odometer);
+		xBeacon = xFlag;
+		yBeacon = yFlag;
+		this.xDest = xDest;
+		this.yDest = yDest;
 		
 		// Get the starting position
 		odometer.getPosition(startingPosition);

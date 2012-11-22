@@ -1,4 +1,5 @@
 package master;
+import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
 
 /**
@@ -9,9 +10,12 @@ import lejos.robotics.subsumption.Behavior;
  */
 public class GoForwardBehavior implements Behavior {
 	private boolean suppressed = false;
+	private static final int FORWARD_SPEED = 10;
 	@Override
 	public void action() {
 		suppressed = false;
+		Sound.beepSequenceUp();
+		Role.robot.setSpeeds(FORWARD_SPEED, 0);
 		Role.robot.goForward();
 		while(!suppressed) {
 			Thread.yield();	//keep going forward until suppressed

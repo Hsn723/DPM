@@ -15,7 +15,7 @@ import master.*;
  *
  */
 
-public class TravelAndTurnTest {
+public class TravelNTurnTest {
 	static TwoWheeledRobot robot = new TwoWheeledRobot(Motor.A, Motor.B);
 	static Odometer odometer = new Odometer(robot, true);
 	static Navigation navigation = new Navigation(odometer);
