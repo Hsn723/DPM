@@ -5,9 +5,10 @@ import lejos.util.TimerListener;
 import lejos.util.Timer;
 
 public class BeaconSweepBehavior implements Behavior, TimerListener {
-	private static final int SCAN_PERIOD = 10 * 1000;
+	private static final int SCAN_PERIOD = 45 * 1000;
+	private static  boolean SCANNING = false;
 	
-	private boolean timedOut = false;
+	private boolean timedOut = true;
 	
 	public BeaconSweepBehavior() {
 		Timer timer = new Timer(SCAN_PERIOD, this);
@@ -16,8 +17,13 @@ public class BeaconSweepBehavior implements Behavior, TimerListener {
 	
 	@Override
 	public void action() {
-		Role.beaconLocalizer.doSearchBehavior();
 		timedOut = false;
+		SCANNING = true;
+		
+		Role.beaconLocalizer.doSearchBehavior();
+		
+		timedOut = false;
+		SCANNING = false;
 		
 	}
 
@@ -28,7 +34,7 @@ public class BeaconSweepBehavior implements Behavior, TimerListener {
 
 	@Override
 	public boolean takeControl() {
-		return timedOut;
+		return timedOut && !SCANNING;
 	}
 
 	@Override

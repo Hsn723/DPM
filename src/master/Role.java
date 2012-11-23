@@ -2,6 +2,7 @@ package master;
 
 import lejos.nxt.LightSensor;
 import lejos.nxt.Sound;
+import lejos.nxt.TouchSensor;
 import master.Forklift.LiftLevel;
 
 /**
@@ -26,6 +27,7 @@ public abstract class Role {
 	protected static Clamp clamp;
 	protected static Forklift forklift;
 	protected static LightSensor beaconLightSensor;
+	protected static TouchSensor beaconTouchSensor;
 	
 	// Set state booleans for our behaviors
 	public static boolean originReached = false;
@@ -61,10 +63,11 @@ public abstract class Role {
 		clamp = new Clamp(btConnector.getClampMotor());
 		forklift = new Forklift(btConnector.getForkliftMotor());
 		beaconLightSensor = btConnector.getRemoteLightSensor();
+		beaconTouchSensor = btConnector.getRemoteTouchSensor();
 		beaconLocalizer = new BeaconLocalizer(robot, odometer, beaconLightSensor, forklift);
 		
 		// Start by setting the lift high so that it doesn't collide with walls.
-		forklift.goToHeight(LiftLevel.HIGH);
+		//forklift.goToHeight(LiftLevel.HIGH);
 		
 		// Get the starting position
 		odometer.getPosition(startingPosition);

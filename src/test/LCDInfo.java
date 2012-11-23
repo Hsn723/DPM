@@ -4,6 +4,7 @@ import lejos.nxt.LCD;
 import lejos.util.Timer;
 import lejos.util.TimerListener;
 import master.Odometer;
+import master.Role;
 
 /**
  * Class to print odometer information to the lcd of our master brick.
@@ -29,11 +30,17 @@ public class LCDInfo implements TimerListener{
 		lcdTimer.start();
 	}
 	
+	public LCDInfo(){
+		this.lcdTimer = new Timer(LCD_REFRESH, this);
+		lcdTimer.start();
+	}
+	
 	/**
 	 * Print odometer information to the screen
 	 * Multiplies odometer values by 10 for accuracy 
 	 * reasons.
 	 */
+	/*
 	public void timedOut() { 
 		odo.getPosition(pos);
 		LCD.clear();
@@ -44,5 +51,13 @@ public class LCDInfo implements TimerListener{
 		LCD.drawInt((int)(pos[1] * 10), 3, 1);
 		LCD.drawInt((int)pos[2], 3, 2);
 		
+	}
+	*/
+	
+	public void timedOut(){
+		LCD.clear();
+		LCD.drawString("detected:" + Role.beaconDetected, 0, 0);
+		LCD.drawString("reached:" + Role.beaconReached, 0, 1);
+		LCD.drawString("grabbed:" + Role.beaconGrabbed, 0, 2);
 	}
 }

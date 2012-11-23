@@ -92,11 +92,12 @@ public class BeaconLocalizer {
 	 * Searches for the brightest light at different levels.
 	 */
 	public void doSearchBehavior() {
-		//forklift.goToHeight(LiftLevel.LOW);
+		forklift.goToHeight(LiftLevel.LOW);
 		robot.rotateIndependently(360);
 		collectLightValues();
 		
 		// Search other levels
+		/*
 		if(!Role.beaconDetected) {
 			forklift.goToHeight(LiftLevel.MIDLOW);
 			robot.rotateIndependently(360);
@@ -107,6 +108,9 @@ public class BeaconLocalizer {
 			robot.rotateIndependently(360);
 			collectLightValues();
 		}
+		
+		*/
+		
 		if(!Role.beaconDetected) {
 			forklift.goToHeight(LiftLevel.HIGH);
 			robot.rotateIndependently(360);
@@ -245,7 +249,7 @@ public class BeaconLocalizer {
 					if (currentLightValue > brightestLightValue ){
 						brightestLightAngle = odometer.getTheta();
 						brightestLightValue = currentLightValue;
-						Sound.beep();
+						Sound.twoBeeps();
 						//beaconFound = true;
 						Role.beaconDetected = true;
 						

@@ -13,7 +13,7 @@ import lejos.nxt.Sound;
 public class Navigation {
 	
 	// Define constants
-	private static final int FORWARD_SPEED = 10;
+	private static final int FORWARD_SPEED = 20;	//10
 	private static final int ROTATE_SPEED = 50;
 	private static final double ANGLE_BAND = 1;
 	private static double[] headings = new double[3];
@@ -34,6 +34,8 @@ public class Navigation {
 	 * absolute positioning (not relative to the current position of the robot)
 	 * @param x x coordinate in cm
 	 * @param y y coordinate in cm
+	 * 
+	 * @deprecated The TravelToBehavior and ExitFieldBehavior now implement this locally.
 	 * 
 	 */
 	public void travelToIndependently(double x, double y) {
@@ -82,7 +84,6 @@ public class Navigation {
 	 * @param x x coordinate in cm
 	 * @param y y coordinate in cm
 	 * 
-	 * @deprecated
 	 */
 	public void travelTo(double x, double y) {
 		// USE THE FUNCTIONS setForwardSpeed and setRotationalSpeed from TwoWheeledRobot!
@@ -114,11 +115,10 @@ public class Navigation {
 		 
 		// Stop the NXT
 		//this.robot.setSpeeds(0,0);
-		Role.destinationReached = true;	//set the destination as reached for the behavior
 	}
 	
 	/**
-	 * Turns the NXT to the specified angle.
+	 * Turns the NXT to the specified angle without blocking
 	 * @param angle	the angle to which we want to turn
 	 */
 	public void turnToIndependently(double angle) {

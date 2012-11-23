@@ -14,7 +14,7 @@ public class GoForwardBehavior implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		Sound.beepSequenceUp();
+		Sound.beepSequenceUp();	//FIXME: debug only, remove
 		Role.robot.setSpeeds(FORWARD_SPEED, 0);
 		Role.robot.goForward();
 		while(!suppressed) {
@@ -30,7 +30,7 @@ public class GoForwardBehavior implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return true;
+		return !Role.beaconGrabbed;	//we can stop once the beacon has been grabbed.
 	}
 	
 }

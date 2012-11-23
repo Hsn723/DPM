@@ -1,6 +1,7 @@
 package master;
 import java.io.IOException;
 import lejos.nxt.LightSensor;
+import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.nxt.comm.Bluetooth;
 import lejos.nxt.remote.RemoteMotor;
@@ -43,6 +44,16 @@ public class BTConnector {
 	 */
 	public LightSensor getRemoteLightSensor() {
 		return new LightSensor(slaveNXT.S2);
+	}
+	
+	/**
+	 * Gets the TouchSensor on the remote NXT.
+	 * This sensor can then be accessed the same way
+	 * as if it was local to our master NXT.
+	 * @return a TouchSensor object
+	 */
+	public TouchSensor getRemoteTouchSensor() {
+		return new TouchSensor(slaveNXT.S4);
 	}
 	
 	/**

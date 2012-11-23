@@ -50,7 +50,6 @@ public class TravelToBehavior implements Behavior {
 		// Advance
 		Role.robot.goForward();
 
-		//Role.navigation.travelToIndependently(x, y);	//FIXME: travelTo should not be blocking now
 		while(!suppressed && !Role.destinationReached) {
 			Role.odometer.getPosition(headings);
 			xHeading = x - headings[0];

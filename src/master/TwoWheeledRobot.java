@@ -1,5 +1,6 @@
 package master;
 import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
@@ -175,6 +176,7 @@ public class TwoWheeledRobot {
 	 */
 	public void goForward(double distance)
 	{
+		
 		leftMotor.rotate(-convertDistance(DEFAULT_LEFT_RADIUS, distance), true);
 		rightMotor.rotate(-convertDistance(DEFAULT_RIGHT_RADIUS,distance));
 	}
@@ -265,5 +267,13 @@ public class TwoWheeledRobot {
 	 */
 	public static LightSensor getMasterLightSensor() {
 		return masterLightSensor;
+	}
+	
+	
+	public void setAcceleration(int acceleration){
+		leftMotor.setAcceleration(acceleration);
+		rightMotor.setAcceleration(acceleration);
+		
+		
 	}
 }
