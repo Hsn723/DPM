@@ -26,9 +26,9 @@ public class BTListen {
 	private static final String remoteNXTName = "Scorpio";
 	private static final double TILE_FACTOR = 30.48;
 	
-	private static UltrasonicSensor ultrasonicSensor;
+	//private static UltrasonicSensor ultrasonicSensor;
 	// Add one localizer
-	private static USLocalizer ultrasonicLocalizer;
+	//private static USLocalizer ultrasonicLocalizer;
 	
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
@@ -39,8 +39,8 @@ public class BTListen {
 		Transmission transmission = bluetoothConnection.getTransmission();
 		
 		// Initialize objects
-		ultrasonicSensor = robot.getFrontUltrasonicSensor();
-		ultrasonicLocalizer = new USLocalizer(odometer, ultrasonicSensor, LocalizationType.RISING_EDGE);
+		//ultrasonicSensor = robot.getFrontUltrasonicSensor();
+		//ultrasonicLocalizer = new USLocalizer(odometer, ultrasonicSensor, LocalizationType.RISING_EDGE);
 		
 		// Get the information from transmission
 		corner = transmission.startingCorner;	//do something with the corner
@@ -50,19 +50,25 @@ public class BTListen {
 		double xFlag = transmission.fx * TILE_FACTOR, yFlag = transmission.fy * TILE_FACTOR;
 		double xDest = transmission.dx * TILE_FACTOR, yDest = transmission.dy * TILE_FACTOR;
 		// Localize
-		ultrasonicLocalizer.doLocalization();
+		//ultrasonicLocalizer.doLocalization();
 		
 		// Once we have localized, update the position.
-		odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
+		//odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
 		
 		// Start role
 		if (role == PlayerRole.DEFENDER) {
 			Defender defender = new Defender(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
+			// Once we have localized, update the position.
+			odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
+			
 			defender.getBeacon();
 			defender.hideBeacon();
 		} else if (role == PlayerRole.ATTACKER) {
 			//wait 5 minutes
 			Attacker attacker = new Attacker(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
+			// Once we have localized, update the position.
+			odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
+			
 			attacker.searchBeacon();
 			attacker.depositBeacon();
 		}

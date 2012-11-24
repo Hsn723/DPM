@@ -35,7 +35,7 @@ public class Attacker extends Role {
 		Behavior b0 = new GoForwardBehavior();
 		Behavior b1 = new TravelToBehavior(xBeacon, yBeacon);
 		Behavior b2 = new ObstacleAvoidanceBehavior();
-		Behavior b3 = new BeaconSweepBehavior();	//TODO: constructors for this
+		Behavior b3 = new BeaconSweepBehavior(30);
 		Behavior b4 = new BeaconGrabBehavior();
 		Behavior[] behaviors = {b0, b1, b2, b3, b4};
 		

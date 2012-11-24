@@ -17,10 +17,10 @@ public class Forklift {
 	private LiftLevel currentLiftLevel = LiftLevel.LOW;
 	
 	public enum LiftLevel {
-		HIGH (18),
-		MIDHIGH (10),
-		MIDLOW (6),
-		LOW (0);
+		HIGH (16.5d),
+		MIDHIGH (10d),
+		MIDLOW (6d),
+		LOW (0d);
 		private final double height;
 
 		LiftLevel(double height) {
@@ -35,6 +35,7 @@ public class Forklift {
 	 */
 	public Forklift(RemoteMotor motor) {
 		this.motor = motor;
+		this.motor.resetTachoCount();
 		this.motor.setSpeed(ELEVATION_SPEED);
 	}
 	

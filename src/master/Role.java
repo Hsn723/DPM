@@ -4,6 +4,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
 import master.Forklift.LiftLevel;
+import master.USLocalizer.LocalizationType;
 
 /**
  * This abstract class defines a Role which only contains
@@ -18,6 +19,7 @@ public abstract class Role {
 	protected static TwoWheeledRobot robot; //changed to static
 	protected static Odometer odometer;
 	protected static Navigation navigation; // changed to static
+	private static USLocalizer ultrasonicLocalizer;
 	//private UltrasonicSensor ultrasonicLocalizerSensor = new UltrasonicSensor(SensorPort.S1);
 	protected BTConnector btConnector;
 	protected static BeaconLocalizer beaconLocalizer;
@@ -28,6 +30,7 @@ public abstract class Role {
 	protected static Forklift forklift;
 	protected static LightSensor beaconLightSensor;
 	protected static TouchSensor beaconTouchSensor;
+	
 	
 	// Set state booleans for our behaviors
 	public static boolean originReached = false;
@@ -67,8 +70,12 @@ public abstract class Role {
 		beaconLocalizer = new BeaconLocalizer(robot, odometer, beaconLightSensor, forklift);
 		
 		// Start by setting the lift high so that it doesn't collide with walls.
-		//forklift.goToHeight(LiftLevel.HIGH);
-		
+		forklift.goToHeight(LiftLevel.HIGH);
+		ultrasonicLocalizer = new USLocalizer(odometer, robot.getFrontUltrasonicSensor(), LocalizationType.RISING_EDGE);
+		ultrasonicLocalizer.doLocalization();
+	}
+	
+	public void setStartingPosition() {
 		// Get the starting position
 		odometer.getPosition(startingPosition);
 	}

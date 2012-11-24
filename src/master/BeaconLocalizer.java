@@ -117,14 +117,15 @@ public class BeaconLocalizer {
 			collectLightValues();
 		}
 		if(Role.beaconDetected) {
-			navigation.turnTo(brightestLightAngle);
-			robot.rotate(180);
+			navigation.turnTo(brightestLightAngle - 180);
+			//robot.rotate(180);
 			// note this works only for when the beacon is on the floor.
 			// if the baecon is placed on top of a block and there's a obstacle in front of it, this would break
+			do {
+				robot.goForward();
+			} while (ultrasonicSensor.getDistance() < BEACON_DISTANCE_THRESHOLD);
 			
-			if(ultrasonicSensor.getDistance() < BEACON_DISTANCE_THRESHOLD) {
-				Role.beaconReached = true;
-			}
+			Role.beaconReached = true;
 		}
 	}
 	

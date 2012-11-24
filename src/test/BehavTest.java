@@ -34,13 +34,12 @@ public class BehavTest {
 		Behavior b0 = new GoForwardBehavior();
 		Behavior b1 = new TravelToBehavior(2 * TILE_FACTOR, 2 * TILE_FACTOR);	//travel to tile (10,10)
 		Behavior b2 = new ObstacleAvoidanceBehavior();
-		Behavior b3 = new BeaconSweepBehavior();
+		Behavior b3 = new BeaconSweepBehavior(45);
 		Behavior b4 = new BeaconGrabBehavior();
 		Behavior b5 = new BeaconDropBehavior();
 		
 		//Behavior[] behaviors = {b0, b1, b2, b3, b4};
-		Behavior[] behaviors = {b0,b4};
-		Role.beaconDetected =true;
+		Behavior[] behaviors = {b3,b4};
 		Arbitrator arbitrator = new Arbitrator(behaviors);
 	
 		

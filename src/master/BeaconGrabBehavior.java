@@ -1,5 +1,6 @@
 package master;
 
+import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
 
 /**
@@ -15,26 +16,33 @@ public class BeaconGrabBehavior implements Behavior {
 	@Override
 	public boolean takeControl() {
 		return Role.beaconDetected 
-				&& Role.robot.getFrontUltrasonicSensor().getDistance() < 25
+				&& Role.beaconReached
 				&& !Role.beaconGrabbed;
 	}
 
 	@Override
 	public void action() {
 		suppressed = false;
+		Role.beaconGrabbed = false;
 		Role.robot.rotate(180);
+		Sound.playTone(1000, 2, 20);
 		
 		
-		Role.robot.setAcceleration(500);
-		Role.robot.setMotorSpeed(500, 500);
+		Role.robot.setAcceleration(800);
+		Role.robot.setMotorSpeed(800, 800);
+		
+		// Since we always forget to open the clamp, let's open it here
+		Role.clamp.release();
 		
 		Role.robot.start();
+		Sound.playTone(2000, 2, 20);
 		
-		while(!Role.beaconTouchSensor.isPressed());
+		while(!Role.beaconTouchSensor.isPressed()) {
+			Thread.yield();
+		}
 	
-		Role.robot.stop();
-		
 		Role.clamp.grip();
+		Role.robot.stop();
 		
 		Role.beaconGrabbed = true;
 	}

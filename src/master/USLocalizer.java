@@ -9,8 +9,8 @@ import lejos.nxt.UltrasonicSensor;
 public class USLocalizer {
 	public enum LocalizationType { FALLING_EDGE, RISING_EDGE };
 	public static double ROTATION_SPEED = 50;
-	public static final int WALL_DIST = 40;
-	public static final int MAX_DIST = 50;
+	public static final int WALL_DIST = 40;	//40
+	public static final int MAX_DIST = 50;	//50
 
 	private Odometer odo;
 	private TwoWheeledRobot robot;

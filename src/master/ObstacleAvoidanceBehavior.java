@@ -66,7 +66,7 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 	}
 	
 	private boolean obstacleDetected(){
-		return !Role.beaconReached 
+		return !Role.beaconGrabbed && !Role.beaconReached 
 				&& Role.robot.getFrontUltrasonicSensor().getDistance() < OBSTACLE_STAND_OFF_DISTANCE;
 	}
 	

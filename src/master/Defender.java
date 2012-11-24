@@ -48,15 +48,15 @@ public class Defender extends Role {
 	 */
 	public void getBeacon() {
 		// Instantiate behaviors.
-		Behavior b0 = new GoForwardBehavior();
-		Behavior b1 = new BeaconSweepBehavior();
-		Behavior b2 = new TravelToBehavior(xBeacon, yBeacon);
-		Behavior b3 = new ObstacleAvoidanceBehavior();
-		Behavior b4 = new BeaconGrabBehavior();
-		Behavior[] behaviors = {b0, b1, b2, b3, b4};
+		//Behavior b0 = new GoForwardBehavior();
+		Behavior b0 = new BeaconSweepBehavior(45);
+		Behavior b1 = new TravelToBehavior(xBeacon, yBeacon);
+		Behavior b2 = new ObstacleAvoidanceBehavior();
+		Behavior b3 = new BeaconGrabBehavior();
+		Behavior[] behaviors = {b0, b1, b2, b3};
 
 		// Instantiate and start arbitrator.
-		Arbitrator arbitrator = new Arbitrator(behaviors, true);
+		Arbitrator arbitrator = new Arbitrator(behaviors);
 		arbitrator.start();
 		/*
 		// First navigate to given coordinates for beacon
