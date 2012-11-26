@@ -5,7 +5,14 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.toDegrees;
 import lejos.robotics.subsumption.Behavior;
-
+/**
+ * This class defines the behavior that makes the robot
+ * exit the field by going back to the original coordinates
+ * it has started with.
+ * 
+ * @author Antoine Tu
+ *
+ */
 public class ExitFieldBehavior implements Behavior {
 	private static final int FORWARD_SPEED = 10;
 	private static final int ROTATE_SPEED = 50;

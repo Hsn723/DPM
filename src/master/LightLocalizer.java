@@ -1,9 +1,5 @@
 package master;
-import lejos.nxt.*;
 import lejos.nxt.LightSensor;
-import lejos.nxt.Sound;
-//import lejos.nxt.comm.RConsole;
-import static java.lang.Math.*;
 
 /**
  * Performs light localization on the robot

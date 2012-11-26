@@ -4,9 +4,11 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 
-/* 
+/** 
  * OdometryCorrection.java
  * This class corrects the odometer by detecting the lines
+ * 
+ * @author Jeffrey Durocher
  */
 
 public class LightDetector extends Thread {

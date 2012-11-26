@@ -17,7 +17,7 @@ public class Forklift {
 	private LiftLevel currentLiftLevel = LiftLevel.LOW;
 	
 	public enum LiftLevel {
-		HIGH (16.5d),
+		HIGH (16d),
 		MIDHIGH (10d),
 		MIDLOW (6d),
 		LOW (0d);
@@ -50,6 +50,7 @@ public class Forklift {
 		
 		try {
 			this.motor.rotate(convertDistance(level.height - currentLiftLevel.height));
+			motor.stop();
 		} catch (Exception e) {
 			this.currentLiftLevel = level;
 			return;
@@ -57,7 +58,7 @@ public class Forklift {
 		
 		this.currentLiftLevel = level;
 			
-
+		
 		
 		
 		/*int distance = motor.getTachoCount();

@@ -4,6 +4,12 @@ import lejos.nxt.Sound;
 import lejos.nxt.LightSensor;
 import lejos.robotics.subsumption.Behavior;
 
+/**
+ * This class implements odometrycorrection using behavior
+ * based programming.
+ * @author Jeffrey Durocher
+ *
+ */
 public class OdometryCorrentionBehavior implements Behavior {
 	private static final long CORRECTION_PERIOD = 10;
 	private Odometer odometer;

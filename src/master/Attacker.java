@@ -2,7 +2,6 @@ package master;
 
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
-import master.Forklift.LiftLevel;
 
 /**
  * This class defines a Attacker role for the robot.
@@ -41,14 +40,6 @@ public class Attacker extends Role {
 		
 		Arbitrator arbitrator = new Arbitrator(behaviors, true);
 		arbitrator.start();
-		/*
-		// Write better algorithm to search for the beacon here.
-		
-		//TODO this is only for the demo
-		BeaconLocalizer beaconLocalizer = new BeaconLocalizer(robot, odometer, btConnector.getRemoteLightSensor(), forklift, getCorner());
-		beaconLocalizer.doSearch();
-		clamp.grip();
-		*/
 	}
 	
 	/**
@@ -67,13 +58,6 @@ public class Attacker extends Role {
 		
 		Arbitrator arbitrator = new Arbitrator(behaviors, true);
 		arbitrator.start();
-		/*
-		navigation.travelTo(xDest, yDest);
-		forklift.goToHeight(LiftLevel.LOW);
-		clamp.release();
-		// TODO: we might want to decide on another dropoff point
-		navigation.travelTo(startingPosition[0], startingPosition[1]);
-		*/
 	}
 	
 	
@@ -84,6 +68,7 @@ public class Attacker extends Role {
 	 * 3 = top right
 	 * 4 = bottom right
 	 * @return
+	 * @deprecated
 	 */
 	private int getCorner() {
 		double tolerance = 5;	//give 5cm of error margin, it doesn't really matter

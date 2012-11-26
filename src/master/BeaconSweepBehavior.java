@@ -3,7 +3,14 @@ package master;
 import lejos.robotics.subsumption.Behavior;
 import lejos.util.TimerListener;
 import lejos.util.Timer;
-
+/**
+ * This class implements Behavior and defines a timer
+ * that sets the interval at which the robot will scan
+ * for a beacon.
+ * 
+ * @author Lixuan Tang
+ *
+ */
 public class BeaconSweepBehavior implements Behavior, TimerListener {
 	//private static final int SCAN_PERIOD = 45 * 1000;
 	private static  boolean SCANNING = false;

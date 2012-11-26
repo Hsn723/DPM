@@ -1,8 +1,5 @@
 package master;
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
-import lejos.nxt.UltrasonicSensor;
-import master.USLocalizer.LocalizationType;
 import bluetooth.BluetoothConnection;
 import bluetooth.PlayerRole;
 import bluetooth.StartCorner;
@@ -15,7 +12,7 @@ import bluetooth.Transmission;
  * on attacker, defender etc...
  * 
  * Calls attacker or defender class once all data is received.
- * @author 
+ * @author  Antoine Tu
  *
  */
 
@@ -38,22 +35,13 @@ public class BTListen {
 		// Get the transmission
 		Transmission transmission = bluetoothConnection.getTransmission();
 		
-		// Initialize objects
-		//ultrasonicSensor = robot.getFrontUltrasonicSensor();
-		//ultrasonicLocalizer = new USLocalizer(odometer, ultrasonicSensor, LocalizationType.RISING_EDGE);
-		
 		// Get the information from transmission
 		corner = transmission.startingCorner;	//do something with the corner
 		PlayerRole role = transmission.role;
 		
 		// Flag position (defense) and destination (attack)
-		double xFlag = transmission.fx * TILE_FACTOR, yFlag = transmission.fy * TILE_FACTOR;
+		double xFlag = transmission.fx * TILE_FACTOR - 30, yFlag = transmission.fy * TILE_FACTOR - 30;
 		double xDest = transmission.dx * TILE_FACTOR, yDest = transmission.dy * TILE_FACTOR;
-		// Localize
-		//ultrasonicLocalizer.doLocalization();
-		
-		// Once we have localized, update the position.
-		//odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
 		
 		// Start role
 		if (role == PlayerRole.DEFENDER) {
@@ -64,7 +52,8 @@ public class BTListen {
 			defender.getBeacon();
 			defender.hideBeacon();
 		} else if (role == PlayerRole.ATTACKER) {
-			//wait 5 minutes
+			//TODO: wait 5 minutes
+			
 			Attacker attacker = new Attacker(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
 			// Once we have localized, update the position.
 			odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});

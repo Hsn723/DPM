@@ -2,7 +2,13 @@ package master;
 
 import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
-
+/**
+ * This class implements Behavior and defines a set
+ * of steps that the robot uses to go around an obstacle
+ * when it is detected.
+ * @author Lixuan Tang
+ *
+ */
 public class ObstacleAvoidanceBehavior implements Behavior {
 	private static final int OBSTACLE_STAND_OFF_DISTANCE = 20;
 	private static final int ERROR = 5;

@@ -1,11 +1,7 @@
 package master;
 import lejos.nxt.LightSensor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.nxt.UltrasonicSensor;
-import lejos.nxt.comm.RConsole;
-import lejos.nxt.remote.RemoteMotor;
-import lejos.util.Stopwatch;
 import master.Forklift.LiftLevel;
 /**
  * This class contains methods which do a
@@ -35,9 +31,10 @@ public class BeaconLocalizer {
 	public double brightestLightAngle = 0;
 	private double lightHeading = 0;
 	private static final int BEACON_DISTANCE_THRESHOLD = 20;
+	private final int SENSOR_OFFSET = 5;
 	
 	//parameters to help keeping track of the average light values, used for line detection
-	private final int bufferSize = 20;
+	private final int bufferSize = 10;
 	private int[] previousLightValues = new int[bufferSize];
 	private int averageLightValueUpdateCounter = 0;
 	private int averageLightValue = 0;
@@ -117,7 +114,7 @@ public class BeaconLocalizer {
 			collectLightValues();
 		}
 		if(Role.beaconDetected) {
-			navigation.turnTo(brightestLightAngle - 180);
+			navigation.turnTo(brightestLightAngle - 180 + SENSOR_OFFSET);
 			//robot.rotate(180);
 			// note this works only for when the beacon is on the floor.
 			// if the baecon is placed on top of a block and there's a obstacle in front of it, this would break

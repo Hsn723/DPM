@@ -9,9 +9,12 @@ import master.*;
 import master.Forklift.LiftLevel;
 
 /**
- * Test class for TravelToBehavior.
- * The robot is expected to travel to
- * coordinates and then exit the field
+ * Test file for behaviors. In this test, we start by calling
+ * the most basic behavior (GoForward). When it is shown to work
+ * in a predictable way, we stack the next behavior and reiterate the test.
+ * This test allows us to observe the correctness of the interactions between
+ * the behaviors when they are stacked together and fed to the arbitrator.
+ * 
  * @author Antoine Tu
  *
  */

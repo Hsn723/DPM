@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
     <target name="javadoc">
-        <javadoc access="public" author="true" classpath="C:\Users\Natsumi\Dropbox\BSE\Fall 2012\ECSE 211\T01\Fall2012-Server-and-Client\Fall2012-Server-and-Client\ProjectF12Client.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="master,test" source="1.7" sourcepath="src" splitindex="true" use="true" version="true">
+        <javadoc access="public" author="true" classpath="lib/ProjectF12Client.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="master,test" source="1.7" sourcepath="src" splitindex="true" use="true" version="true">
             <link href="file:/C:/Users/Natsumi/leJOSNXJProjects/classes/doc/"/>
             <link href="file:/C:/Users/Natsumi/Dropbox/BSE/Fall 2012/ECSE 211/T01/Fall2012-Server-and-Client/Fall2012-Server-and-Client/javadoc-client/"/>
             <link href="file:/C:/Users/Natsumi/Dropbox/BSE/Fall%202012/ECSE%20211/T01/Software%20Architecture/doc/"/>
