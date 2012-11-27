@@ -23,7 +23,7 @@ public abstract class Role {
 	//private UltrasonicSensor ultrasonicLocalizerSensor = new UltrasonicSensor(SensorPort.S1);
 	protected BTConnector btConnector;
 	protected static BeaconLocalizer beaconLocalizer;
-	protected double xBeacon, yBeacon, zBeacon;
+	protected static double xBeacon, yBeacon;
 	protected double xDest, yDest;
 	protected static double[] startingPosition = new double[3];
 	protected static Clamp clamp;
@@ -71,7 +71,7 @@ public abstract class Role {
 		
 		// Start by setting the lift high so that it doesn't collide with walls.
 		forklift.goToHeight(LiftLevel.HIGH);
-		ultrasonicLocalizer = new USLocalizer(odometer, robot.getFrontUltrasonicSensor(), LocalizationType.RISING_EDGE);
+		ultrasonicLocalizer = new USLocalizer(odometer, robot.getFrontUltrasonicSensor(), LocalizationType.FALLING_EDGE);
 		ultrasonicLocalizer.doLocalization();
 	}
 	

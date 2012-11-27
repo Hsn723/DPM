@@ -242,7 +242,7 @@ public class TwoWheeledRobot {
 	 * @return boolean of if the robot is turning or not
 	 */
 	public boolean isTurning(){
-		return this.isTurning;
+		return leftMotor.isMoving() && rightMotor.isMoving();
 	}
 
 	/**

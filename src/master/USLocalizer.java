@@ -80,8 +80,8 @@ public class USLocalizer {
 			// angleA is clockwise from angleB, so assume the average of the
 			// angles to the right of angleB is 45 degrees past 'north'
 			double deltaT;
-			if (angleA > angleB) deltaT = 45 - (angleA + angleB)/2;
-			else deltaT = 225 - (angleA + angleB)/2;
+			if (angleA > angleB) deltaT = 55 - (angleA + angleB)/2;
+			else deltaT = 235 - (angleA + angleB)/2;
 			this.navigation.turnTo(-deltaT);
 			
 			// update the odometer position

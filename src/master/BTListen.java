@@ -52,11 +52,13 @@ public class BTListen {
 			defender.getBeacon();
 			defender.hideBeacon();
 		} else if (role == PlayerRole.ATTACKER) {
-			//TODO: wait 5 minutes
 			
 			Attacker attacker = new Attacker(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
 			// Once we have localized, update the position.
 			odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
+
+			//Sleep 5 minutes
+			try { Thread.sleep((5*60 + 20) * 1000); } catch (InterruptedException e) {}
 			
 			attacker.searchBeacon();
 			attacker.depositBeacon();

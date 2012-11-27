@@ -14,8 +14,9 @@ public class BeaconDropBehavior implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		Role.robot.rotate(180);
+		Role.robot.goForward(20);
 		Role.clamp.release();
+		Role.robot.goForward(20);
 		Role.beaconDropped = true;
 	}
 

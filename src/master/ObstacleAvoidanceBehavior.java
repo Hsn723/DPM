@@ -1,6 +1,7 @@
 package master;
 
 import lejos.nxt.Sound;
+import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
 /**
  * This class implements Behavior and defines a set
@@ -13,8 +14,8 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 	private static final int OBSTACLE_STAND_OFF_DISTANCE = 20;
 	private static final int ERROR = 5;
 	private static final int MOTOR_STRAIGHT = 100;
-	private static final int MOTOR_LOW = MOTOR_STRAIGHT/2 - 25;
-	private static final int MOTOR_HIGH = MOTOR_STRAIGHT * 3 / 2;
+	private static final int MOTOR_LOW = MOTOR_STRAIGHT/2+20;
+	private static final int MOTOR_HIGH = MOTOR_STRAIGHT*2;
 	private static final double THETA_ERROR = 2;
 	
 	private boolean suppressed = false;
@@ -23,7 +24,8 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 	
 	private boolean obstacleDetected = false;
 	
-	
+	private UltrasonicSensor ultrasonicSensor = Role.robot.getFrontUltrasonicSensor();
+	private UltrasonicSensor sideSensor = Role.robot.getSideUltrasonicSensor();
 
 	@Override
 	public void action() {
@@ -36,7 +38,7 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 		}
 		
 		while (!suppressed && avoidingInAction() ){
-			int distance = Role.robot.getSideUltrasonicSensor().getDistance();
+			int distance = getFilteredData(sideSensor);
 			if (distance - OBSTACLE_STAND_OFF_DISTANCE > ERROR){
 				Role.robot.setMotorSpeed(MOTOR_HIGH, MOTOR_LOW);
 			}
@@ -66,18 +68,40 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 	@Override
 	public boolean takeControl() {
 		
-		if (obstacleDetected()) obstacleDetected = true;
+		if (obstacleDetected()){
+			obstacleDetected = true;
+			originalTheta = Role.odometer.getTheta();
+		}
 		
 		return obstacleDetected && avoidingInAction(); 
 	}
 	
 	private boolean obstacleDetected(){
-		return !Role.beaconGrabbed && !Role.beaconReached 
-				&& Role.robot.getFrontUltrasonicSensor().getDistance() < OBSTACLE_STAND_OFF_DISTANCE;
+		return !(Role.beaconReached ^ Role.beaconGrabbed) 
+				&& getFilteredData(ultrasonicSensor) < OBSTACLE_STAND_OFF_DISTANCE;
 	}
 	
 	private boolean avoidingInAction(){
-		return obstacleDetected && (Math.abs(originalTheta + 270 - Role.odometer.getTheta()) > THETA_ERROR);
+		return obstacleDetected && (Role.odometer.fixDegAngle(originalTheta + 270 - Role.odometer.getTheta()) > THETA_ERROR);
+	}
+	
+	private int getFilteredData(UltrasonicSensor us) {
+		int distance;
+		int[] rawDistances = new int[5];
+		for (int i = 0; i < rawDistances.length; i++)
+		{
+			// do a ping
+			us.ping();
+			
+			// wait for the ping to complete
+			try { Thread.sleep(10); } catch (InterruptedException e) {}
+			rawDistances[i] = us.getDistance();
+		}
+		
+		distance = 0;
+		for (int dist:rawDistances) distance += dist;
+		distance /= rawDistances.length;	
+		return distance;
 	}
 
 }

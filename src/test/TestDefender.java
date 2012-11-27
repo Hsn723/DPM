@@ -22,31 +22,32 @@ public class TestDefender {
 	private static USLocalizer ultrasonicLocalizer;
 	
 	public static void main(String[] args) {	
-		ultrasonicSensor = robot.getFrontUltrasonicSensor();
-		ultrasonicLocalizer = new USLocalizer(odometer, ultrasonicSensor, LocalizationType.RISING_EDGE);
+		//ultrasonicSensor = robot.getFrontUltrasonicSensor();
+		//ultrasonicLocalizer = new USLocalizer(odometer, ultrasonicSensor, LocalizationType.FALLING_EDGE);
 		//bottom left starting
 		corner = StartCorner.BOTTOM_LEFT;
 		//Beacon starts at 5,5
-		double fx = 5;
-		double fy = 5;
+		double fx = 4;
+		double fy = 4;
 		
 		//These are the end coordinates so we might want to put the beacon 
 		//as far away from end point as possible to make it hard on the attacker
-		double dx = 10;
-		double dy = 10;
+		double dx = 5;
+		double dy = 2;
 		
 		// Flag position (defense) and destination (attack)
 		double xFlag = fx * TILE_FACTOR, yFlag = fy * TILE_FACTOR;
 		double xDest = dx * TILE_FACTOR, yDest = dy * TILE_FACTOR;
 		// Localize
-		ultrasonicLocalizer.doLocalization();
+		//ultrasonicLocalizer.doLocalization();
 		
 		// Once we have localized, update the position.
-		odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
+		
 		
 		// Start role
 		
 		Defender defender = new Defender(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
+		odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
 		defender.getBeacon();
 		defender.hideBeacon();
 		

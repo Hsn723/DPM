@@ -31,7 +31,7 @@ public class BeaconLocalizer {
 	public double brightestLightAngle = 0;
 	private double lightHeading = 0;
 	private static final int BEACON_DISTANCE_THRESHOLD = 20;
-	private final int SENSOR_OFFSET = 5;
+	private final int SENSOR_OFFSET = -5;
 	
 	//parameters to help keeping track of the average light values, used for line detection
 	private final int bufferSize = 10;
@@ -91,7 +91,7 @@ public class BeaconLocalizer {
 	public void doSearchBehavior() {
 		forklift.goToHeight(LiftLevel.LOW);
 		robot.rotateIndependently(360);
-		collectLightValues();
+		collectLightValues(false);
 		
 		// Search other levels
 		/*
@@ -111,17 +111,43 @@ public class BeaconLocalizer {
 		if(!Role.beaconDetected) {
 			forklift.goToHeight(LiftLevel.HIGH);
 			robot.rotateIndependently(360);
-			collectLightValues();
+			collectLightValues(false);
 		}
 		if(Role.beaconDetected) {
+			int min = 255;
+			double angle = 0;
+			int currentReading;
 			navigation.turnTo(brightestLightAngle - 180 + SENSOR_OFFSET);
 			//robot.rotate(180);
 			// note this works only for when the beacon is on the floor.
-			// if the baecon is placed on top of a block and there's a obstacle in front of it, this would break
-			do {
-				robot.goForward();
-			} while (ultrasonicSensor.getDistance() < BEACON_DISTANCE_THRESHOLD);
-			
+			// if the beacon is placed on top of a block and there's a obstacle in front of it, this would break
+			if (getFilteredData() > BEACON_DISTANCE_THRESHOLD){
+				robot.rotateIndependently(30);
+				while (robot.isTurning()){
+					currentReading = getFilteredData();
+					if (currentReading < min){
+						min = currentReading;
+						angle = Role.odometer.getTheta();
+					}
+				}
+				robot.rotateIndependently(-60);
+				while (robot.isTurning()){
+					currentReading = getFilteredData();
+					if (currentReading < min){
+						min = currentReading;
+						angle = Role.odometer.getTheta();
+					}
+				}
+				if (min == 255){
+					Sound.beep();
+					robot.rotate(30);
+					robot.goForward(20);
+					doSearchBehavior();
+					return;
+				}
+				navigation.turnTo(angle-2);
+				robot.goForward(min-20);
+			}
 			Role.beaconReached = true;
 		}
 	}
@@ -143,7 +169,7 @@ public class BeaconLocalizer {
 		while (!beaconFound){
 			robot.rotateIndependently(360); //rotate 360 degrees
 			//findLight();
-			collectLightValues();
+			collectLightValues(false);
 		
 			if (!beaconFound){
 				double nextX = odometer.getX(), nextY = odometer.getY();
@@ -195,7 +221,7 @@ public class BeaconLocalizer {
 		robot.rotate(180);
 		
 		
-		if (ultrasonicSensor.getDistance() > 20){
+		if (ultrasonicSensor.getDistance() > 5){
 			robot.goForward(20);
 		}
 		
@@ -205,7 +231,7 @@ public class BeaconLocalizer {
 		}
 		
 		robot.rotateIndependently(360); //rotate 360 degreesf
-		collectLightValues();
+		collectLightValues(false);
 		//robot.rotate(180);
 		//robot.goForward();
 		
@@ -235,10 +261,12 @@ public class BeaconLocalizer {
 	 * 
 	 * Beeps if beacon is found
 	 */
-	public void collectLightValues(){
+	public void collectLightValues(boolean useMotors){
 		int brightestLightValue = 0;
 		long startTime = System.currentTimeMillis();
-		
+		if (useMotors){ robot.setSpeeds(0,35);
+		robot.rotateIndependently(200);
+		}
 		while (System.currentTimeMillis() - startTime < 8000){
 			totalReadCount++;
 			currentLightValue = lightSensor.getLightValue();
@@ -249,6 +277,11 @@ public class BeaconLocalizer {
 						brightestLightValue = currentLightValue;
 						Sound.twoBeeps();
 						//beaconFound = true;
+						if (useMotors){
+							Sound.twoBeeps();
+							robot.rotate(-5);
+							robot.stop();
+						}
 						Role.beaconDetected = true;
 						
 					}
@@ -314,5 +347,24 @@ public class BeaconLocalizer {
 		}
 		
 		this.averageLightValue = sum/this.previousLightValues.length;
+	}
+	
+	private int getFilteredData() {
+		int distance;
+		int[] rawDistances = new int[5];
+		for (int i = 0; i < rawDistances.length; i++)
+		{
+			// do a ping
+			ultrasonicSensor.ping();
+			
+			// wait for the ping to complete
+			try { Thread.sleep(10); } catch (InterruptedException e) {}
+			rawDistances[i] = ultrasonicSensor.getDistance();
+		}
+		
+		distance = 0;
+		for (int dist:rawDistances) distance += dist;
+		distance /= rawDistances.length;	
+		return distance;
 	}
 	}

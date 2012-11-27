@@ -13,7 +13,7 @@ import master.Forklift.LiftLevel;
 public class BeaconGrabBehavior implements Behavior {
 	private static final int STAND_OFF_DISTANCE = 20;
 	
-	private static final int LIGHT_SENSOR_OFFSET_ANGLE = -5;
+	private static final int LIGHT_SENSOR_OFFSET_ANGLE = 10;
 	private boolean suppressed = false;
 	
 	@Override
@@ -27,7 +27,8 @@ public class BeaconGrabBehavior implements Behavior {
 	public void action() {
 		suppressed = false;
 		Role.beaconGrabbed = false;
-		Role.robot.rotate(180 + LIGHT_SENSOR_OFFSET_ANGLE);
+		//Role.robot.rotate(180 + LIGHT_SENSOR_OFFSET_ANGLE);
+		Role.beaconLocalizer.collectLightValues(true);
 		Sound.playTone(1000, 2, 100);
 		
 		
@@ -47,7 +48,8 @@ public class BeaconGrabBehavior implements Behavior {
 	
 		Role.clamp.grip();
 		Role.robot.stop();
-		Role.forklift.goToHeight(LiftLevel.HIGH);
+		Role.forklift.goToHeight(LiftLevel.MIDLOW);
+		
 		
 		Role.beaconGrabbed = true;
 	}
