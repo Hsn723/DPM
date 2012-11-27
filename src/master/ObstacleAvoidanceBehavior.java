@@ -54,6 +54,7 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 		}
 		
 		obstacleDetected = false;
+		initialized = false;
 		Sound.beepSequence();
 		
 		
@@ -77,12 +78,14 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 	}
 	
 	private boolean obstacleDetected(){
-		return !(Role.beaconReached ^ Role.beaconGrabbed) 
+		return !(Role.originReached && Role.beaconGrabbed) 
 				&& getFilteredData(ultrasonicSensor) < OBSTACLE_STAND_OFF_DISTANCE;
 	}
 	
+	@SuppressWarnings("static-access")
 	private boolean avoidingInAction(){
-		return obstacleDetected && (Role.odometer.fixDegAngle(originalTheta + 270 - Role.odometer.getTheta()) > THETA_ERROR);
+		return obstacleDetected 
+				&& (Role.odometer.fixDegAngle(Role.odometer.fixDegAngle(originalTheta + 315) - Role.odometer.getTheta()) > THETA_ERROR);
 	}
 	
 	private int getFilteredData(UltrasonicSensor us) {

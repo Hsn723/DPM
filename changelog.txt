@@ -1,0 +1,161 @@
+commit 4e34fac6538a4510b10ad70003689488d53f55d3
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Tue Nov 27 12:35:50 2012 -0500
+
+    Testing and changing values according to test results
+
+commit 62672467c8ed11b118e1317ee8e22896a8c9db69
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Mon Nov 26 15:30:12 2012 -0500
+
+    Final javadoc and software architecture
+
+commit b1e94a39887d7f1942141a592986043d4ec8c636
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Sat Nov 24 16:43:16 2012 -0500
+
+    Backup. Behaviors work, need improving/some fixes
+
+commit ee12ff955a7cc4ac954883dab7534766d73ea54e
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Fri Nov 23 16:14:48 2012 -0500
+
+    Backup
+
+commit 5d58bdea46e298bd51e9db8600aebcf6871c0ca6
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Thu Nov 22 17:50:51 2012 -0500
+
+    Improved behaviors
+
+commit 11e29583aa4598042e9e07e8976393d1087575ab
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Wed Nov 21 15:34:40 2012 -0500
+
+    Added ExitFieldBehavior
+
+commit 6239eebdc780ab6ef61024fc63ca7da1ac3cf09f
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Wed Nov 21 14:11:07 2012 -0500
+
+    Switched to behavior programming
+
+commit b8c62336d81028bede501bdedf0cd650b4d5c5e5
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Wed Nov 21 09:45:10 2012 -0500
+
+    Changes made by Jeffrey
+
+commit 74e7c7ad3fb8a4513d2d5cc322242782231b9d83
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Mon Nov 19 12:22:07 2012 -0500
+
+    Centralized sensors initializations and fixed Test
+
+commit 34a4d3230eb8b16dcd00e01dc7974947cabb51cd
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Thu Nov 15 16:48:41 2012 -0500
+
+    Added localization to BTListen
+
+commit 7a68a5ac0111a6fd360799a95351bb7ba8f297a7
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Thu Nov 15 16:42:41 2012 -0500
+
+    Temporary fix for forcing the clamp to open wide for the beacon
+
+commit b4a4f0cd78622ac6b1380f48dd66707e022684ee
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Thu Nov 15 16:32:27 2012 -0500
+
+    Fixed several bugs
+
+commit 3b5879ee927080e4a8d203c49145b191ea34301f
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Wed Nov 14 13:59:11 2012 -0500
+
+    Improved BeaconLocalizer logic
+
+commit 67a728813b51ae6dd442f7f6ff676571d3afda02
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Wed Nov 14 13:23:49 2012 -0500
+
+    Calibrated some values
+
+commit 34d9e3f5192707e16f3dab73e845c3083ce23f67
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Mon Nov 12 13:52:37 2012 -0500
+
+    Used a Role superclass for Attacker and Defender
+
+commit cf1c1d9904c76c5e63598873092a2084761a415f
+Author: Natsumi Hoshino <me@kagehoshi.com>
+Date:   Sun Nov 11 22:34:31 2012 -0500
+
+    Added stress tests
+
+commit 839781c8ae883f68f7e9cdf3c069a8de57a07bfc
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Sat Nov 10 14:09:07 2012 -0500
+
+    Updated Defender and Javadoc
+
+commit 3411675c017b4d70303c4fb65fd5650055003ae7
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Fri Nov 9 13:58:53 2012 -0500
+
+    Finished Forklift class
+
+commit 5576d05fe5c1e816c50f7530e8b62b438d45ec2c
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Fri Nov 9 10:45:27 2012 -0500
+
+    Changed some wheel constants
+
+commit b7bac04692aa57080a7b8083de76d8b05781551f
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Wed Nov 7 13:55:57 2012 -0500
+
+    BeaconLocalizer
+
+commit 366e3cb4a5aefc1adeee6a706a3381676e08b3ca
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Mon Nov 5 13:08:22 2012 -0500
+
+    Updated Clamp
+
+commit 7a926ad32217bca0db7f8bb01535aa56f2c0b942
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Sun Nov 4 18:22:09 2012 -0500
+
+    Updated Javadoc
+
+commit 3fd7e021b2cb46109fcde0d003e2a1037858a761
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Sun Nov 4 18:04:10 2012 -0500
+
+    Added Forklift and ForkliftTest
+
+commit ad263b14bdfa687b904a42b6dff5397c889eb10a
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Sun Nov 4 13:25:43 2012 -0500
+
+    Added Clamp class with its corresponding test
+
+commit 0dba76f47c8520960e7bdd7ff0a6864b6e36d61d
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Fri Nov 2 12:26:41 2012 -0400
+
+    Created test package with BTConnectorTest
+
+commit 2e89a45d92a65da622f3d537d9d1cb4e919ecf28
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Fri Nov 2 11:11:19 2012 -0400
+
+    Added new classes and generated Javadoc
+
+commit 071e469f7d403b8d77b604cb571e0daa1b8094eb
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Fri Nov 2 09:39:48 2012 -0400
+
+    First Commit
