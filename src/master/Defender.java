@@ -33,7 +33,7 @@ public class Defender extends Role {
 	public void getBeacon() {
 		// Instantiate behaviors.
 		Behavior b0 = new GoForwardBehavior();
-		Behavior b1 = new BeaconSweepBehavior(45);
+		Behavior b1 = new BeaconSweepBehavior(2, true);
 		Behavior b2 = new TravelToBehavior(xBeacon-30.48, yBeacon-30.48);
 		Behavior b3 = new ObstacleAvoidanceBehavior();
 		Behavior b4 = new BeaconGrabBehavior();

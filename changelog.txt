@@ -1,3 +1,9 @@
+commit edb815b52081d3de455ff86a43f57198723563ec
+Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
+Date:   Tue Nov 27 13:28:31 2012 -0500
+
+    Updated ObstacleAvoidanceBehavior and added changelog file
+
 commit 4e34fac6538a4510b10ad70003689488d53f55d3
 Author: NatsumiHoshino <antoine.tu@mail.mcgill.ca>
 Date:   Tue Nov 27 12:35:50 2012 -0500

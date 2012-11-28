@@ -30,8 +30,8 @@ public class Odometer implements TimerListener {
 		this.robot = robot;
 		this.nav = new Navigation(this);
 		odometerTimer = new Timer(period, this);
-		x = 0.0;
-		y = 0.0;
+		x = -15.0;
+		y = -15.0;
 		theta = 0.0;
 		oldDH = new double [2];
 		dDH = new double [2];

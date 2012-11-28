@@ -16,7 +16,7 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 	private static final int MOTOR_STRAIGHT = 100;
 	private static final int MOTOR_LOW = MOTOR_STRAIGHT/2+20;
 	private static final int MOTOR_HIGH = MOTOR_STRAIGHT*2;
-	private static final double THETA_ERROR = 2;
+	private static final double THETA_ERROR = 5;
 	
 	private boolean suppressed = false;
 	private double originalTheta = 0;
@@ -36,8 +36,12 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 			Role.robot.goForward();
 			initialized = true;
 		}
-		
+		long startTime = System.currentTimeMillis();
 		while (!suppressed && avoidingInAction() ){
+			
+			if (System.currentTimeMillis() - startTime > 20000 && Role.beaconDropped){
+				System.exit(0);
+			}
 			int distance = getFilteredData(sideSensor);
 			if (distance - OBSTACLE_STAND_OFF_DISTANCE > ERROR){
 				Role.robot.setMotorSpeed(MOTOR_HIGH, MOTOR_LOW);
@@ -85,7 +89,7 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 	@SuppressWarnings("static-access")
 	private boolean avoidingInAction(){
 		return obstacleDetected 
-				&& (Role.odometer.fixDegAngle(Role.odometer.fixDegAngle(originalTheta + 315) - Role.odometer.getTheta()) > THETA_ERROR);
+				&& (Math.abs(Role.odometer.fixDegAngle(originalTheta + 315) - Role.odometer.getTheta()) > THETA_ERROR);
 	}
 	
 	private int getFilteredData(UltrasonicSensor us) {

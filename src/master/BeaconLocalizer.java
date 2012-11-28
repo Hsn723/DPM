@@ -108,7 +108,7 @@ public class BeaconLocalizer {
 		
 		*/
 		
-		if(!Role.beaconDetected) {
+		if(!Role.beaconDetected && BeaconSweepBehavior.scanOnce) {
 			forklift.goToHeight(LiftLevel.HIGH);
 			robot.rotateIndependently(360);
 			collectLightValues(false);

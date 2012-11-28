@@ -71,7 +71,7 @@ public abstract class Role {
 		
 		// Start by setting the lift high so that it doesn't collide with walls.
 		forklift.goToHeight(LiftLevel.HIGH);
-		ultrasonicLocalizer = new USLocalizer(odometer, robot.getFrontUltrasonicSensor(), LocalizationType.FALLING_EDGE);
+		ultrasonicLocalizer = new USLocalizer(odometer, robot.getFrontUltrasonicSensor(), LocalizationType.RISING_EDGE);
 		ultrasonicLocalizer.doLocalization();
 	}
 	

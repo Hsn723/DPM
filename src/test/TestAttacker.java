@@ -36,8 +36,6 @@ public class TestAttacker {
 		// Flag position (defense) and destination (attack)
 		double xFlag = fx * TILE_FACTOR, yFlag = fy * TILE_FACTOR;
 		double xDest = dx * TILE_FACTOR, yDest = dy * TILE_FACTOR;
-		// Localize
-		ultrasonicLocalizer.doLocalization();
 		
 		// Once we have localized, update the position.
 		odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});

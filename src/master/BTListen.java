@@ -1,4 +1,5 @@
 package master;
+import lejos.nxt.Button;
 import lejos.nxt.Motor;
 import bluetooth.BluetoothConnection;
 import bluetooth.PlayerRole;
@@ -23,6 +24,7 @@ public class BTListen {
 	private static final String remoteNXTName = "Scorpio";
 	private static final double TILE_FACTOR = 30.48;
 	
+	private static SoundSample soundSample;
 	//private static UltrasonicSensor ultrasonicSensor;
 	// Add one localizer
 	//private static USLocalizer ultrasonicLocalizer;
@@ -49,6 +51,17 @@ public class BTListen {
 			// Once we have localized, update the position.
 			odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
 			
+			//TODO: reactivate this once we get everything working.
+			/*
+			Thread thread = new Thread(new Runnable(){
+				public void run() {
+				soundSample = new SoundSample("Benny Hill");
+				soundSample.play();
+				}
+			});
+			thread.start();
+			*/
+
 			defender.getBeacon();
 			defender.hideBeacon();
 		} else if (role == PlayerRole.ATTACKER) {
@@ -57,8 +70,39 @@ public class BTListen {
 			// Once we have localized, update the position.
 			odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
 
+			// Sleep for 5 minutes
+			Thread timerThread = new Thread(new Runnable() {
+				public void run() {
+					try { 
+						Thread.sleep(5 * 60 * 1000); 
+					} catch (InterruptedException e) {
+						return;
+					}
+				}
+			});
+			timerThread.start();
+			
+			// Check if the timer should be interrupted.
+			int buttonChoice;
+			do {
+				buttonChoice = Button.waitForPress();
+			} while(buttonChoice != Button.ID_LEFT
+		&& buttonChoice != Button.ID_RIGHT);
+			if (buttonChoice == Button.ID_LEFT || buttonChoice == Button.ID_RIGHT) {
+				timerThread.interrupt();
+			}
 			//Sleep 5 minutes
-			try { Thread.sleep((5*60 + 20) * 1000); } catch (InterruptedException e) {}
+			//try { Thread.sleep((5*60 + 20) * 1000); } catch (InterruptedException e) {}
+			
+			/*
+			Thread thread = new Thread(new Runnable(){
+				public void run() {
+				soundSample = new SoundSample("Imperial March");
+				soundSample.play();
+				}
+			});
+			thread.start();
+			*/
 			
 			attacker.searchBeacon();
 			attacker.depositBeacon();

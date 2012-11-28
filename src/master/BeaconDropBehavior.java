@@ -1,5 +1,6 @@
 package master;
 import lejos.robotics.subsumption.Behavior;
+import master.Forklift.LiftLevel;
 
 /**
  * This class defines a behavior that makes the
@@ -17,6 +18,7 @@ public class BeaconDropBehavior implements Behavior {
 		Role.robot.goForward(20);
 		Role.clamp.release();
 		Role.robot.goForward(20);
+		Role.forklift.goToHeight(LiftLevel.HIGH);	//Get the forklift to high after dropping.
 		Role.beaconDropped = true;
 	}
 
