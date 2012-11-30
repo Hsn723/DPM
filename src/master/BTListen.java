@@ -42,7 +42,7 @@ public class BTListen {
 		PlayerRole role = transmission.role;
 		
 		// Flag position (defense) and destination (attack)
-		double xFlag = transmission.fx * TILE_FACTOR - 30, yFlag = transmission.fy * TILE_FACTOR - 30;
+		double xFlag = 5 * TILE_FACTOR - 30, yFlag = 5 * TILE_FACTOR - 30;
 		double xDest = transmission.dx * TILE_FACTOR, yDest = transmission.dy * TILE_FACTOR;
 		
 		// Start role
@@ -65,14 +65,17 @@ public class BTListen {
 			defender.getBeacon();
 			defender.hideBeacon();
 		} else if (role == PlayerRole.ATTACKER) {
-			
+			/*long startTime = System.currentTimeMillis();
+			while (System.currentTimeMillis() - startTime < 5*60*1000){
+				if (Button.LEFT.isPressed()) break;
+			}*/
 			Attacker attacker = new Attacker(robot, odometer, xFlag, yFlag, xDest, yDest, remoteNXTName);
 			// Once we have localized, update the position.
 			odometer.setPosition(getStartingPose(), new boolean[] {true, true, true});
-
+			// Once we have localized, update the position.
 			// Sleep for 5 minutes
-			Thread timerThread = new Thread(new Runnable() {
-				public void run() {
+			/*Thread timerThread = new Thread(new Runnable() {
+			public void run() {
 					try { 
 						Thread.sleep(5 * 60 * 1000); 
 					} catch (InterruptedException e) {
@@ -90,19 +93,19 @@ public class BTListen {
 		&& buttonChoice != Button.ID_RIGHT);
 			if (buttonChoice == Button.ID_LEFT || buttonChoice == Button.ID_RIGHT) {
 				timerThread.interrupt();
-			}
+			}*/
 			//Sleep 5 minutes
 			//try { Thread.sleep((5*60 + 20) * 1000); } catch (InterruptedException e) {}
 			
-			/*
-			Thread thread = new Thread(new Runnable(){
+			
+			/*Thread thread = new Thread(new Runnable(){
 				public void run() {
 				soundSample = new SoundSample("Imperial March");
 				soundSample.play();
 				}
 			});
-			thread.start();
-			*/
+			thread.start();*/
+		
 			
 			attacker.searchBeacon();
 			attacker.depositBeacon();
@@ -118,17 +121,25 @@ public class BTListen {
 	 */
 	@SuppressWarnings("static-access")
 	private static double[] getStartingPose() {
-		double xPos = corner.getX() * TILE_FACTOR;
-		double yPos = corner.getY() * TILE_FACTOR;
+		double xPos = 0;
+		double yPos = 0;
 		double heading = 0;
 		if (corner == StartCorner.BOTTOM_LEFT) {
 			heading = 0;
+			xPos = 0;
+			yPos = 0;
 		} else if (corner == StartCorner.BOTTOM_RIGHT) {
-			heading = -90;
+			heading = 270;
+			xPos = -304.8;
+			yPos = 0;
 		} else if (corner == StartCorner.TOP_LEFT) {
 			heading = 90;
+			xPos = 0;
+			yPos = -304.8;
 		} else if (corner == StartCorner.TOP_RIGHT) {
 			heading = 180;
+			xPos = -304.8;
+			yPos = -304.8;
 		}
 		
 		double[] position = { xPos, yPos, heading };

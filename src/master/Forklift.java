@@ -1,5 +1,6 @@
 package master;
 
+import lejos.nxt.Sound;
 import lejos.nxt.remote.RemoteMotor;
 
 /**
@@ -14,7 +15,7 @@ public class Forklift {
 	private RemoteMotor motor;
 	private static final int ELEVATION_SPEED = 100;
 	private static final double MOTOR_RADIUS = 0.8;
-	private LiftLevel currentLiftLevel;
+	private LiftLevel currentLiftLevel = LiftLevel.LOW;
 	
 	public enum LiftLevel {
 		HIGH (0d),
@@ -37,7 +38,7 @@ public class Forklift {
 		this.motor = motor;
 		this.motor.resetTachoCount();
 		this.motor.setSpeed(ELEVATION_SPEED);
-		currentLiftLevel = LiftLevel.LOW;
+		//currentLiftLevel = LiftLevel.HIGH;
 	}
 	
 	/**
@@ -46,7 +47,12 @@ public class Forklift {
 	 * @param level the height level to reach.
 	 */
 	public void goToHeight(LiftLevel level) {
-		if (level == currentLiftLevel) return;
+		if (level == currentLiftLevel){
+			Sound.twoBeeps();
+			return;
+		}
+		
+		if (level == LiftLevel.LOW) Sound.beepSequence();
 		
 		
 		try {

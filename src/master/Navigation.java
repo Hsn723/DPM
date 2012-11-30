@@ -1,5 +1,6 @@
 package master;
 import static java.lang.Math.*;
+import sun.management.LazyCompositeData;
 import lejos.nxt.Sound;
 
 /**
@@ -150,6 +151,7 @@ public class Navigation {
 	 * 
 	 */
 	public void turnTo(double angle) {
+	
 		// USE THE FUNCTIONS setForwardSpeed and setRotationalSpeed from TwoWheeledRobot!
 		// Get the current and target angle
 		this.odo.getPosition(headings);

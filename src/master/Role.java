@@ -1,5 +1,6 @@
 package master;
 
+import test.LCDInfo;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
@@ -68,11 +69,20 @@ public abstract class Role {
 		beaconLightSensor = btConnector.getRemoteLightSensor();
 		beaconTouchSensor = btConnector.getRemoteTouchSensor();
 		beaconLocalizer = new BeaconLocalizer(robot, odometer, beaconLightSensor, forklift);
+		LCDInfo lcd = new LCDInfo(odometer);
+		
+		
 		
 		// Start by setting the lift high so that it doesn't collide with walls.
+		beaconLightSensor.setFloodlight(false);
 		forklift.goToHeight(LiftLevel.HIGH);
 		ultrasonicLocalizer = new USLocalizer(odometer, robot.getFrontUltrasonicSensor(), LocalizationType.RISING_EDGE);
 		ultrasonicLocalizer.doLocalization();
+		if (this instanceof Attacker){
+			Sound.beep();
+		navigation.turnTo(45);
+		robot.goForward(30);
+		}
 	}
 	
 	public void setStartingPosition() {

@@ -33,6 +33,9 @@ public class TwoWheeledRobot {
 	private double forwardSpeed, rotationSpeed;
 	private boolean isTurning = false;
 	
+	private double storedSpeedLeft = 0;
+	private double storedSpeedRight = 0;
+	
 	public TwoWheeledRobot(NXTRegulatedMotor leftMotor,
 						   NXTRegulatedMotor rightMotor,
 						   double width,
@@ -275,5 +278,14 @@ public class TwoWheeledRobot {
 		rightMotor.setAcceleration(acceleration);
 		
 		
+	}
+	
+	public void storeSpeed(){
+		storedSpeedLeft = leftMotor.getSpeed();
+		storedSpeedRight = rightMotor.getSpeed();
+	}
+	
+	public void recoverSpeed(){
+		setMotorSpeed(storedSpeedLeft, storedSpeedRight);
 	}
 }

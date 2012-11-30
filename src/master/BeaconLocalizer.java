@@ -109,7 +109,7 @@ public class BeaconLocalizer {
 		*/
 		
 		if(!Role.beaconDetected && BeaconSweepBehavior.scanOnce) {
-			forklift.goToHeight(LiftLevel.HIGH);
+			forklift.goToHeight(LiftLevel.MIDHIGH);
 			robot.rotateIndependently(360);
 			collectLightValues(false);
 		}
@@ -159,7 +159,7 @@ public class BeaconLocalizer {
 	 * @deprecated
 	 */
 	public void doSearch() {
-		lightSensor.setFloodlight(true); //turn on light (not necessary, more of a debug function)
+		lightSensor.setFloodlight(false); //turn on light (not necessary, more of a debug function)
 		//took off light calibration as it was reporting false positives
 		
 		forklift.goToHeight(LiftLevel.LOW);

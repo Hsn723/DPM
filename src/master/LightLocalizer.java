@@ -31,7 +31,7 @@ public class LightLocalizer {
 		angleIndex = 0;
 		
 		// turn on the light
-		ls.setFloodlight(true);
+		ls.setFloodlight(false);
 	}
 	
 	public void doLocalization() {

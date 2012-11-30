@@ -27,8 +27,8 @@ public class TestAttacker {
 		//bottom left starting
 		corner = StartCorner.BOTTOM_LEFT;
 		//Beacon starts at 5,5 (for the defender but we can use this in our algorithm) and must be dropped at 10,10
-		double fx = 5;
-		double fy = 5;
+		double fx = 2;
+		double fy = 2;
 				
 		double dx = 10;
 		double dy = 10;

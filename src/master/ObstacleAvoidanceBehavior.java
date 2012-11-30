@@ -39,7 +39,7 @@ public class ObstacleAvoidanceBehavior implements Behavior {
 		long startTime = System.currentTimeMillis();
 		while (!suppressed && avoidingInAction() ){
 			
-			if (System.currentTimeMillis() - startTime > 20000 && Role.beaconDropped){
+			if (System.currentTimeMillis() - startTime > 40000 && Role.beaconDropped){
 				System.exit(0);
 			}
 			int distance = getFilteredData(sideSensor);

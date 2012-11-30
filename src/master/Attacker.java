@@ -31,12 +31,12 @@ public class Attacker extends Role {
 	 * Once found, use the clamp to grab the beacon
 	 */
 	public void searchBeacon() {
-		Behavior b0 = new GoForwardBehavior();
+		Behavior b0 = new GoSpiralBehavior();
 		Behavior b1 = new TravelToBehavior(xBeacon, yBeacon);
 		Behavior b2 = new ObstacleAvoidanceBehavior();
 		Behavior b3 = new BeaconSweepBehavior(30);
 		Behavior b4 = new BeaconGrabBehavior();
-		Behavior[] behaviors = {b0, b1, b2, b3, b4};
+		Behavior[] behaviors = {b0, b1, b3, b4};
 		
 		Arbitrator arbitrator = new Arbitrator(behaviors, true);
 		arbitrator.start();
